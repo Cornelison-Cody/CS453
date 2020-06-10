@@ -185,7 +185,6 @@ bool intVulnerability(int offset) {
         cin >> buffer[offset];
         safe = false;
     }
-
     return safe;
 }
 
@@ -196,7 +195,7 @@ void intWorking() {
 
     offset = 9999999999999999999;
 
-    cout << "Offset value is 9999999999999999999." << endl;
+    cout << "Offset max value is 9999999999999999999" << endl;
 
     safe = intVulnerability(offset);
 
@@ -208,7 +207,6 @@ void intWorking() {
     {
         cout << "Integer Overflow!\n";
     }
-
 }
 
 void intExploit() {
@@ -229,7 +227,6 @@ void intExploit() {
     {
         cout << "Integer Overflow!\n";
     }
-
 }
 
 void ansiVulnerability(){}
