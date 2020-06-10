@@ -23,7 +23,7 @@ void heapVulnerability();
 void heapWorking();
 void heapExploit();
 
-void intVulnerability();
+bool intVulnerability(int);
 void intWorking();
 void intExploit();
 
@@ -166,9 +166,71 @@ void heapVulnerability(){}
 void heapWorking(){}
 void heapExploit(){}
 
-void intVulnerability(){}
-void intWorking(){}
-void intExploit(){}
+/**************************************
+ * Integer Overflow
+ * 1. There must be a security check by an expression
+ * 2. The expression must have potential for an overflow
+ * 3. One of the numbers used to compute the setinel must be reachable from 
+ *    external input. This sentinel is a variable used to make the security decision
+ *    from the first requirement.
+ *************************************/
+bool intVulnerability(int offset) {
+
+    int buffer[256];
+    int* check = buffer + 256;
+    bool safe = true;
+
+    if (offset + buffer < check)
+    {
+        cin >> buffer[offset];
+        safe = false;
+    }
+
+    return safe;
+}
+
+void intWorking() {
+
+    int offset;
+    bool safe;
+
+    offset = 9999999999999999999;
+
+    cout << "Offset value is 9999999999999999999." << endl;
+
+    safe = intVulnerability(offset);
+
+    if (safe)
+    {
+        cout << "Safe! No exploit.\n";
+    }
+    else
+    {
+        cout << "Integer Overflow!\n";
+    }
+
+}
+
+void intExploit() {
+    int offset;
+    bool safe;
+
+    cout << "Enter Offset: " << endl;
+
+    cin >> offset;
+
+    safe = intVulnerability(offset);
+
+    if (safe)
+    {
+        cout << "Safe! No exploit.\n";
+    }
+    else
+    {
+        cout << "Integer Overflow!\n";
+    }
+
+}
 
 void ansiVulnerability(){}
 void ansiWorking(){}
