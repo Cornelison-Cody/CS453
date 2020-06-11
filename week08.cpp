@@ -7,7 +7,7 @@ void arrayVulnerability(int index);
 void arrayWorking();
 void arrayExploit();
 
-void arcVulnerability();
+void arcVulnerability(int index);
 void arcWorking();
 void arcExploit();
 
@@ -31,74 +31,77 @@ void ansiVulnerability();
 void ansiWorking();
 void ansiExploit();
 
+void pFunction();
+void badFunction();
+
 int main()
 {
-    cout << "Select a test:\n"
-        << "1: array working\n"
-        << "2: array Exploit\n"
-        << "3: arc working\n"
-        << "4: arc Exploit\n"
-        << "5: vtable working\n"
-        << "6: vtable Exploit\n"
-        << "7: stack working\n"
-        << "8: stack Exploit\n"
-        << "9: heap working\n"
-        << "10: heap Exploit\n"
-        << "11: int working\n"
-        << "12: int Exploit\n"
-        << "13: ansi working\n"
-        << "14: ansi Exploit\n"
-        << "Select: ";
+	cout << "Select a test:\n"
+		<< "1: array working\n"
+		<< "2: array Exploit\n"
+		<< "3: arc working\n"
+		<< "4: arc Exploit\n"
+		<< "5: vtable working\n"
+		<< "6: vtable Exploit\n"
+		<< "7: stack working\n"
+		<< "8: stack Exploit\n"
+		<< "9: heap working\n"
+		<< "10: heap Exploit\n"
+		<< "11: int working\n"
+		<< "12: int Exploit\n"
+		<< "13: ansi working\n"
+		<< "14: ansi Exploit\n"
+		<< "Select: ";
 
-    int test;
-    cin >> test;
+	int test;
+	cin >> test;
 
-    switch(test) 
-    {
-        case 1:
-            arrayWorking();
-            break;
-        case 2:
-            arrayExploit();
-            break;
-        case 3:
-            arcWorking();
-            break;
-        case 4:
-            arcExploit();
-            break;
-        case 5:
-            vtableWorking();
-            break;
-        case 6:
-            vtableExploit();
-            break;
-        case 7:
-            stackWorking();
-            break;
-        case 8:
-            stackExploit();
-            break;
-        case 9:
-            heapWorking();
-            break;
-        case 10:
-            heapExploit();
-            break;
-        case 11:
-            intWorking();
-            break;
-        case 12:
-            intExploit();
-            break;
-        case 13:
-            ansiWorking();
-            break;
-        case 14:
-            ansiExploit();
-            break;
-    }
-    return 0;
+	switch (test)
+	{
+	case 1:
+		arrayWorking();
+		break;
+	case 2:
+		arrayExploit();
+		break;
+	case 3:
+		arcWorking();
+		break;
+	case 4:
+		arcExploit();
+		break;
+	case 5:
+		vtableWorking();
+		break;
+	case 6:
+		vtableExploit();
+		break;
+	case 7:
+		stackWorking();
+		break;
+	case 8:
+		stackExploit();
+		break;
+	case 9:
+		heapWorking();
+		break;
+	case 10:
+		heapExploit();
+		break;
+	case 11:
+		intWorking();
+		break;
+	case 12:
+		intExploit();
+		break;
+	case 13:
+		ansiWorking();
+		break;
+	case 14:
+		ansiExploit();
+		break;
+	}
+	return 0;
 }
 
 /*************************************
@@ -109,19 +112,19 @@ int main()
  ****************************************/
 void arrayVulnerability(int index)
 {
-    int array[5];
-    bool safe = true;
+	int array[5];
+	bool safe = true;
 
-    array[index] = 0;
+	array[index] = 0;
 
-    if (safe)
-    {
-        cout << "Safe! No exploit.\n";
-    }
-    else
-    {
-        cout << "Array has been exploited.\n";
-    }
+	if (safe)
+	{
+		cout << "Safe! No exploit.\n";
+	}
+	else
+	{
+		cout << "Array has been exploited.\n";
+	}
 }
 
 /**************************************
@@ -131,8 +134,8 @@ void arrayVulnerability(int index)
  *************************************/
 void arrayWorking()
 {
-    int index = 3;
-   arrayVulnerability(index);
+	int index = 3;
+	arrayVulnerability(index);
 }
 
 /**************************************
@@ -145,90 +148,132 @@ void arrayWorking()
  *************************************/
 void arrayExploit()
 {
-   int index = 5;
-   arrayVulnerability(index);
+	int index = 5;
+	arrayVulnerability(index);
 }
 
+/**************************************
+ * ARC VULNERABILITY
+ * 1. There must be a function pointer used in the code
+ * 2. Through some vulnerability, there must be a way for user input to
+ *    overwrite the function pointer. This typically happens through a stack
+ *    buffer vulnerability.
+ * 3. After the memory is overwritten, the function pointer must be
+ *    dereferenced.
+ *************************************/
+void arcVulnerability(int index)
+{
+	long buffer[1];
+	void (*pointerFunction)() = pFunction;
 
-void arcVulnerability(){}
-void arcWorking(){}
-void arcExploit(){}
+	cout << "Input a number: ";
+	cin >> buffer[index];
+	pointerFunction();
 
-void vtableVulnerability(){}
-void vtableWorking(){}
-void vtableExploit(){}
+}
+void arcWorking()
+{
+	cout << "Safe\n";
+	arcVulnerability(0);
+}
 
-void stackVulnerability(){}
-void stackWorking(){}
-void stackExploit(){}
+/**************************************
+ * ARC EXPLOIT
+ * 1. The attacker must exploit a vulnerability allowing unintended access to
+ *    the function pointer
+ * 2. The attacker must have the address to another function which is to be
+ *    used to replace the existing function pointer.
+ *************************************/
+void arcExploit()
+{
+	cout << "Not Safe\n";
+	cout << "Here have an address to another function: " << hex << showbase << badFunction << endl;
+	arcVulnerability(1);
+}
+void pFunction()
+{
+	cout << "Pointer Function was called.\n";
+}
+void badFunction()
+{
+	cout << "Will now do bad things.\n";
+}
 
-void heapVulnerability(){}
-void heapWorking(){}
-void heapExploit(){}
+void vtableVulnerability() {}
+void vtableWorking() {}
+void vtableExploit() {}
+
+void stackVulnerability() {}
+void stackWorking() {}
+void stackExploit() {}
+
+void heapVulnerability() {}
+void heapWorking() {}
+void heapExploit() {}
 
 /**************************************
  * Integer Overflow
  * 1. There must be a security check by an expression
  * 2. The expression must have potential for an overflow
- * 3. One of the numbers used to compute the setinel must be reachable from 
+ * 3. One of the numbers used to compute the setinel must be reachable from
  *    external input. This sentinel is a variable used to make the security decision
  *    from the first requirement.
  *************************************/
 bool intVulnerability(int offset) {
 
-    int buffer[256];
-    int* check = buffer + 256;
-    bool safe = true;
+	int buffer[256];
+	int* check = buffer + 256;
+	bool safe = true;
 
-    if (offset + buffer < check)
-    {
-        cin >> buffer[offset];
-        safe = false;
-    }
-    return safe;
+	if (offset + buffer < check)
+	{
+		cin >> buffer[offset];
+		safe = false;
+	}
+	return safe;
 }
 
 void intWorking() {
 
-    int offset;
-    bool safe;
+	int offset;
+	bool safe;
 
-    offset = 9999999999999999999;
+	offset = 9999999999999999999;
 
-    cout << "Offset max value is 9999999999999999999" << endl;
+	cout << "Offset max value is 9999999999999999999" << endl;
 
-    safe = intVulnerability(offset);
+	safe = intVulnerability(offset);
 
-    if (safe)
-    {
-        cout << "Safe! No exploit.\n";
-    }
-    else
-    {
-        cout << "Integer Overflow!\n";
-    }
+	if (safe)
+	{
+		cout << "Safe! No exploit.\n";
+	}
+	else
+	{
+		cout << "Integer Overflow!\n";
+	}
 }
 
 void intExploit() {
-    int offset;
-    bool safe;
+	int offset;
+	bool safe;
 
-    cout << "Enter Offset: " << endl;
+	cout << "Enter Offset: " << endl;
 
-    cin >> offset;
+	cin >> offset;
 
-    safe = intVulnerability(offset);
+	safe = intVulnerability(offset);
 
-    if (safe)
-    {
-        cout << "Safe! No exploit.\n";
-    }
-    else
-    {
-        cout << "Integer Overflow!\n";
-    }
+	if (safe)
+	{
+		cout << "Safe! No exploit.\n";
+	}
+	else
+	{
+		cout << "Integer Overflow!\n";
+	}
 }
 
-void ansiVulnerability(){}
-void ansiWorking(){}
-void ansiExploit(){}
+void ansiVulnerability() {}
+void ansiWorking() {}
+void ansiExploit() {}
