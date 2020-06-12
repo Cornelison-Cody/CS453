@@ -21,7 +21,7 @@ void stackVulnerability(char input[]);
 void stackWorking();
 void stackExploit();
 
-void heapVulnerability();
+void heapVulnerability(char, char);
 void heapWorking();
 void heapExploit();
 
@@ -201,9 +201,53 @@ void badFunction()
 	cout << "Will now do bad things.\n";
 }
 
-void vtableVulnerability() {}
-void vtableWorking() {}
-void vtableExploit() {}
+/*************************************
+ * V-Table VULNERABILTY
+ * 1. The vulnerable class must be polymorphic.
+ * 2. The class must have a buffer as a member variable.
+ * 3. Through some vulnerability, there must be a way for user input to overwrite parts of the V-Table.
+ * 4. After a virtual function pointer is overwritten, the virtual function must	be called.
+
+ ****************************************/
+class Vulnerable
+{
+public:
+ virtual void safe(); 		// polymorphic functions
+ virtual void dangerous();
+private:
+ long buffer[1]; 				// an array in the class that has
+}; 								// a buffer overrun vulnerability
+
+class MyVulnerability : public Vulnerable {
+	public: 
+		void safe() { cout << "Safe Function" << endl; }
+		void dangerous() { cout << "Danger Danger" << endl; }
+		void setBuffer(long value, int index) { buffer[index] = value; }
+};
+
+/**************************************
+ * V-Table WORKING
+ * Call virtual function () in a way that does
+ * not yield unexpected behavior
+ *************************************/
+void vtableWorking() {
+	MyVulnerability safeObject;
+	safeObject.setBuffer(0, 123);
+	cout 	<< "Output should be: Safe Function/n"
+			<< "Function Output : "; safeObject.safe();
+}
+
+/**************************************
+ * V-Table EXPLOIT
+ * 1. Through some vulnerability, the V-Table pointer or a function pointer within the V-Table must be overwritten.
+ * 2. The attacker must have the address to another V-Table pointer or a function pointer.
+ *************************************/
+void vtableExploit() {
+	MyVulnerability dangerousObject;
+	dangerousObject.setBuffer(1, Long(&dangerousObject.dangerous());
+	cout 	<< "Output should be: Safe Function/n"
+			<< "Function Output : "; dangerousObject.safe();
+}
 
 void stackVulnerability(char input[]) {
 	//initialize password
@@ -243,9 +287,60 @@ void stackExploit() {
 	stackVulnerability(input);
 }
 
-void heapVulnerability() {}
-void heapWorking() {}
-void heapExploit() {}
+/**************************************
+ * Heap Spraying
+ * For a heap smashing vulnerability to exist in the code, the following must be present:
+ * 1. There must be two adjacent heap buffers.
+ * 2. The first buffer must be reachable through external input.
+ * 3. The mechanism to fill the buffer from the external input must not correctly check for the buffer size.
+ * 4. The second buffer must be released before the first.
+ * 5. The first buffer must be overrun (extend beyond the intended limits of the array).
+ *************************************/
+void heapVulnerability(char* buffer1, char* buffer2) {
+
+	delete[] buffer2; // need to delete second buffer first 
+	delete[] buffer1;
+}
+void heapWorking() {
+
+	int numElements = 3;
+
+	char* buffer1 = new char[4]; // requires two buffers on the heap 
+	char* buffer2 = new char[4];
+	string input;
+
+	//assert(buffer1 < buffer2); // buffer 1 must be before buffer 2!
+	cout << "Enter 3 characters: " << endl;
+	cout << "buffer Size: " << sizeof(buffer1) << endl;
+
+	cin >> input;
+
+	cout << "sizeof Input: " << input.length() << endl;
+
+	if (input.length() >= 4)
+	{
+		cout << "Please Enter fewer characters: " << endl;
+		return;
+	}
+
+	for (int j = 0; j < numElements; j++)
+	{
+		buffer1[j] = input[j];
+	}
+	cout << "Buffer 1 input: " << buffer1 << endl;
+
+	heapVulnerability(buffer1, buffer2);
+}
+void heapExploit() {
+	char* buffer1 = new char[4]; // requires two buffers on the heap 
+	char* buffer2 = new char[4];
+
+	assert(buffer1 < buffer2); // buffer 1 must be before buffer 2!
+	cout << "Enter 4 or more characters: " << endl;
+	cin >> buffer1;
+
+	heapVulnerability(buffer1, buffer2);
+}
 
 /**************************************
  * Integer Overflow
