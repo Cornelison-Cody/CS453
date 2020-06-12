@@ -211,10 +211,10 @@ void badFunction()
 class Vulnerable
 {
 public:
- virtual void safe(); 		// polymorphic functions
- virtual void dangerous();
+ virtual void safe() {}; 		// polymorphic functions
+ virtual void dangerous() {};
 private:
- long buffer[1]; 				// an array in the class that has
+ long buffer[2]; 				// an array in the class that has
 }; 								// a buffer overrun vulnerability
 
 class MyVulnerability : public Vulnerable {
@@ -222,6 +222,8 @@ class MyVulnerability : public Vulnerable {
 		void safe() { cout << "Safe Function" << endl; }
 		void dangerous() { cout << "Danger Danger" << endl; }
 		void setBuffer(long value, int index) { buffer[index] = value; }
+	private:
+	 long buffer[2];
 };
 
 /**************************************
@@ -230,10 +232,27 @@ class MyVulnerability : public Vulnerable {
  * not yield unexpected behavior
  *************************************/
 void vtableWorking() {
+	
 	MyVulnerability safeObject;
-	safeObject.setBuffer(0, 123);
-	cout 	<< "Output should be: Safe Function/n"
-			<< "Function Output : "; safeObject.safe();
+	int index = 0;
+	long value = 0;
+
+	cout << "Enter 0 or 1 for the index to modify: ";
+	cin  >> index;
+
+	cout << "Enter the value: ";
+	cin  >> value;
+
+	if (index >= 0 && index <= 1) {
+		safeObject.setBuffer(value, index);
+		cout 	<< "Output should be: Safe Function/n"
+				<< "Function Output : "; safeObject.safe();
+		return;
+	}
+	else {
+		cout << "Buffer overrun, please enter 0 or 1 for the index" << endl;
+		return;
+	}
 }
 
 /**************************************
@@ -242,10 +261,19 @@ void vtableWorking() {
  * 2. The attacker must have the address to another V-Table pointer or a function pointer.
  *************************************/
 void vtableExploit() {
-	MyVulnerability dangerousObject;
-	dangerousObject.setBuffer(1, Long(&dangerousObject.dangerous());
+	MyVulnerability safeObject;
+	int index = 0;
+	long value = 0;
+
+	cout << "Enter 0 or 1 for the index to modify: ";
+	cin  >> index;
+
+	cout << "Enter the value: ";
+	cin  >> value;
+
+	safeObject.setBuffer(value, index);
 	cout 	<< "Output should be: Safe Function/n"
-			<< "Function Output : "; dangerousObject.safe();
+			<< "Function Output : "; safeObject.safe();
 }
 
 void stackVulnerability(char input[]) {
