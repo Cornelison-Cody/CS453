@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <cstring>
 
 using namespace std;
 
@@ -16,7 +17,8 @@ void vtableVulnerability();
 void vtableWorking();
 void vtableExploit();
 
-void stackVulnerability();
+void dangerStack();
+void stackVulnerability(char input[]);
 void stackWorking();
 void stackExploit();
 
@@ -205,21 +207,38 @@ void vtableWorking() {}
 void vtableExploit() {}
 
 void stackVulnerability(char input[]) {
+	//initialize password
+	char password[5] = "1234";
+	char username[8];
+
+	cout << "Original Password: " << password << endl;
+	
+	//use the function input to emulate user input
 	istringstream iss(input);
 	cin.rdbuf(iss.rdbuf());	
-	
-	char username[4];
-	char pin[] = "1234";
 
+	//recieve input from user
 	cin >> username;
-	cout << pin;
+
+	//check to see if the password was changed
+	cout << "Password after user input: " << password << endl;
+	if (strcmp(password, "1234\0"))
+	{
+		cout << "The Stack was Smashed! The password was changed.\n";	
+	}
+	else
+	{
+		cout << "Stack was safe. The password is unchanged. " 
+			 << "Time to validate the user.\n";
+	}
 }
 void stackWorking() {
-	char input[] = "user";
+	char input[] = "safeinp";
 	stackVulnerability(input);
 }
 void stackExploit() {
-	char input[] = "user5678";
+	char input[] = "usernameattack";
+	//sprintf(input, "username%p", dangerStack);
 	stackVulnerability(input);
 }
 
