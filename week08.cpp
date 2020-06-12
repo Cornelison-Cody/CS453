@@ -387,8 +387,6 @@ void intExploit() {
 
 void ansiVulnerability(short* unicodeText1, int numElements)
 {
-	short input;
-
 	for (int i = 0; i < numElements; i++)
 	{
 		unicodeText1[i] = 1;
@@ -400,8 +398,6 @@ void ansiVulnerability(short* unicodeText1, int numElements)
 }
 void ansiVulnerability(char* unicodeText1, int numElements)
 {
-	char input;
-
 	for (int i = 0; i < numElements; i++)
 	{
 		unicodeText1[i] = 'a';
