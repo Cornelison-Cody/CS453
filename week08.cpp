@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <sstream>
 
 using namespace std;
 
@@ -203,9 +204,24 @@ void vtableVulnerability() {}
 void vtableWorking() {}
 void vtableExploit() {}
 
-void stackVulnerability() {}
-void stackWorking() {}
-void stackExploit() {}
+void stackVulnerability(char input[]) {
+	istringstream iss(input);
+	cin.rdbuf(iss.rdbuf());	
+	
+	char username[4];
+	char pin[] = "1234";
+
+	cin >> username;
+	cout << pin;
+}
+void stackWorking() {
+	char input[] = "user";
+	stackVulnerability(input);
+}
+void stackExploit() {
+	char input[] = "user5678";
+	stackVulnerability(input);
+}
 
 void heapVulnerability() {}
 void heapWorking() {}
