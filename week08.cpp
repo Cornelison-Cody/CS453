@@ -385,6 +385,43 @@ void intExploit() {
 	}
 }
 
-void ansiVulnerability() {}
-void ansiWorking() {}
-void ansiExploit() {}
+void ansiVulnerability(short* unicodeText1, int numElements)
+{
+	short input;
+
+	for (int i = 0; i < numElements; i++)
+	{
+		unicodeText1[i] = 1;
+	}
+
+	cout << unicodeText1[numElements - 1] << endl;
+	cout << "Number of elements: " << numElements << ". Should be 256." << endl;
+	cout << "Element in array index " << (numElements - 1) << " is: " << unicodeText1[numElements - 1] << endl;
+}
+void ansiVulnerability(char* unicodeText1, int numElements)
+{
+	char input;
+
+	for (int i = 0; i < numElements; i++)
+	{
+		unicodeText1[i] = 'a';
+	}
+
+	cout << unicodeText1[numElements - 1] << endl;
+	cout << "Number of elements: " << numElements << ". Should be 256." << endl;
+	cout << "Element in array index " << (numElements - 1) << " is: " << unicodeText1[numElements - 1] << endl;
+}
+void ansiWorking()
+{
+	cout << "Safe\n";
+	char unicodeText1[256];
+
+	ansiVulnerability(unicodeText1, sizeof(unicodeText1));
+}
+void ansiExploit()
+{
+	cout << "Unsafe\n";
+	short unicodeText1[256];
+
+	ansiVulnerability(unicodeText1, sizeof(unicodeText1));
+}
