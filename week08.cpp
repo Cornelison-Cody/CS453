@@ -17,7 +17,6 @@ void vtableVulnerability();
 void vtableWorking();
 void vtableExploit();
 
-void dangerStack();
 void stackVulnerability(char input[]);
 void stackWorking();
 void stackExploit();
@@ -232,10 +231,12 @@ void stackVulnerability(char input[]) {
 			 << "Time to validate the user.\n";
 	}
 }
+
 void stackWorking() {
 	char input[] = "safeinp";
 	stackVulnerability(input);
 }
+
 void stackExploit() {
 	char input[] = "usernameattack";
 	//sprintf(input, "username%p", dangerStack);
