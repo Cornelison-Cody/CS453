@@ -200,9 +200,53 @@ void badFunction()
 	cout << "Will now do bad things.\n";
 }
 
-void vtableVulnerability() {}
-void vtableWorking() {}
-void vtableExploit() {}
+/*************************************
+ * V-Table VULNERABILTY
+ * 1. The vulnerable class must be polymorphic.
+ * 2. The class must have a buffer as a member variable.
+ * 3. Through some vulnerability, there must be a way for user input to overwrite parts of the V-Table.
+ * 4. After a virtual function pointer is overwritten, the virtual function must	be called.
+
+ ****************************************/
+class Vulnerable
+{
+public:
+ virtual void safe(); 		// polymorphic functions
+ virtual void dangerous();
+private:
+ long buffer[1]; 				// an array in the class that has
+}; 								// a buffer overrun vulnerability
+
+class MyVulnerability : public Vulnerable {
+	public: 
+		void safe() { cout << "Safe Function" << endl; }
+		void dangerous() { cout << "Danger Danger" << endl; }
+		void setBuffer(long value, int index) { buffer[index] = value; }
+};
+
+/**************************************
+ * V-Table WORKING
+ * Call virtual function () in a way that does
+ * not yield unexpected behavior
+ *************************************/
+void vtableWorking() {
+	MyVulnerability safeObject;
+	safeObject.setBuffer(0, 123);
+	cout 	<< "Output should be: Safe Function/n"
+			<< "Function Output : "; safeObject.safe();
+}
+
+/**************************************
+ * V-Table EXPLOIT
+ * 1. Through some vulnerability, the V-Table pointer or a function pointer within the V-Table must be overwritten.
+ * 2. The attacker must have the address to another V-Table pointer or a function pointer.
+ *************************************/
+void vtableExploit() {
+	MyVulnerability dangerousObject;
+	dangerousObject.setBuffer(1, Long(&dangerousObject.dangerous());
+	cout 	<< "Output should be: Safe Function/n"
+			<< "Function Output : "; dangerousObject.safe();
+}
 
 void stackVulnerability(char input[]) {
 	istringstream iss(input);
