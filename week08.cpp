@@ -289,7 +289,6 @@ void heapWorking() {
 	char* buffer2 = new char[4];
 	string input;
 
-	//assert(buffer1 < buffer2); // buffer 1 must be before buffer 2!
 	cout << "Enter 3 characters: " << endl;
 	cout << "buffer Size: " << sizeof(buffer1) << endl;
 
@@ -315,7 +314,6 @@ void heapExploit() {
 	char* buffer1 = new char[4]; // requires two buffers on the heap 
 	char* buffer2 = new char[4];
 
-	assert(buffer1 < buffer2); // buffer 1 must be before buffer 2!
 	cout << "Enter 4 or more characters: " << endl;
 	cin >> buffer1;
 
