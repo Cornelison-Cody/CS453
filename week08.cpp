@@ -20,7 +20,7 @@ void stackVulnerability();
 void stackWorking();
 void stackExploit();
 
-void heapVulnerability();
+void heapVulnerability(char, char);
 void heapWorking();
 void heapExploit();
 
@@ -267,9 +267,60 @@ void stackExploit() {
 	stackVulnerability(input);
 }
 
-void heapVulnerability() {}
-void heapWorking() {}
-void heapExploit() {}
+/**************************************
+ * Heap Spraying
+ * For a heap smashing vulnerability to exist in the code, the following must be present:
+ * 1. There must be two adjacent heap buffers.
+ * 2. The first buffer must be reachable through external input.
+ * 3. The mechanism to fill the buffer from the external input must not correctly check for the buffer size.
+ * 4. The second buffer must be released before the first.
+ * 5. The first buffer must be overrun (extend beyond the intended limits of the array).
+ *************************************/
+void heapVulnerability(char* buffer1, char* buffer2) {
+
+	delete[] buffer2; // need to delete second buffer first 
+	delete[] buffer1;
+}
+void heapWorking() {
+
+	int numElements = 3;
+
+	char* buffer1 = new char[4]; // requires two buffers on the heap 
+	char* buffer2 = new char[4];
+	string input;
+
+	//assert(buffer1 < buffer2); // buffer 1 must be before buffer 2!
+	cout << "Enter 3 characters: " << endl;
+	cout << "buffer Size: " << sizeof(buffer1) << endl;
+
+	cin >> input;
+
+	cout << "sizeof Input: " << input.length() << endl;
+
+	if (input.length() >= 4)
+	{
+		cout << "Please Enter fewer characters: " << endl;
+		return;
+	}
+
+	for (int j = 0; j < numElements; j++)
+	{
+		buffer1[j] = input[j];
+	}
+	cout << "Buffer 1 input: " << buffer1 << endl;
+
+	heapVulnerability(buffer1, buffer2);
+}
+void heapExploit() {
+	char* buffer1 = new char[4]; // requires two buffers on the heap 
+	char* buffer2 = new char[4];
+
+	assert(buffer1 < buffer2); // buffer 1 must be before buffer 2!
+	cout << "Enter 4 or more characters: " << endl;
+	cin >> buffer1;
+
+	heapVulnerability(buffer1, buffer2);
+}
 
 /**************************************
  * Integer Overflow
