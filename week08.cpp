@@ -2,6 +2,7 @@
 #include <string>
 #include <sstream>
 #include <cstring>
+#include <cassert>
 
 using namespace std;
 
@@ -249,6 +250,15 @@ void vtableExploit() {
 			<< "Function Output : "; dangerousObject.safe();
 }
 
+/**************************************
+ * Stack Smashing VULNERABILITY
+ * 1. There must be a buffer (such as an array) on the stack.
+ * 2. The buffer must be reachable from an external input.
+ * 3. The mechanism to fill the buffer from the external input must not
+ *    correctly check for the buffer size.
+ * 4. The buffer must be overrun (extend beyond the intended limits of the
+ *    array).
+ *************************************/
 void stackVulnerability(char input[]) {
 	//initialize password
 	char password[5] = "1234";
@@ -276,14 +286,24 @@ void stackVulnerability(char input[]) {
 	}
 }
 
+/**************************************
+ * Stack Smashing Working
+ * The stack passes in a safe input that
+ * will allow the function to work as normal
+ *************************************/
 void stackWorking() {
 	char input[] = "safeinp";
 	stackVulnerability(input);
 }
 
+/**************************************
+ * Stack Smashing Exploit
+ * The function will pass in an input
+ * that is too long and will end up 
+ * smashing the stack
+ *************************************/
 void stackExploit() {
 	char input[] = "usernameattack";
-	//sprintf(input, "username%p", dangerStack);
 	stackVulnerability(input);
 }
 
