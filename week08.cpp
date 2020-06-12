@@ -20,7 +20,7 @@ void stackVulnerability();
 void stackWorking();
 void stackExploit();
 
-void heapVulnerability();
+void heapVulnerability(char, char);
 void heapWorking();
 void heapExploit();
 
@@ -211,10 +211,10 @@ void badFunction()
 class Vulnerable
 {
 public:
- virtual void safe(); 		// polymorphic functions
- virtual void dangerous();
+ virtual void safe() {}; 		// polymorphic functions
+ virtual void dangerous() {};
 private:
- long buffer[1]; 				// an array in the class that has
+ long buffer[2]; 				// an array in the class that has
 }; 								// a buffer overrun vulnerability
 
 class MyVulnerability : public Vulnerable {
@@ -222,6 +222,8 @@ class MyVulnerability : public Vulnerable {
 		void safe() { cout << "Safe Function" << endl; }
 		void dangerous() { cout << "Danger Danger" << endl; }
 		void setBuffer(long value, int index) { buffer[index] = value; }
+	private:
+	 long buffer[2];
 };
 
 /**************************************
@@ -230,10 +232,27 @@ class MyVulnerability : public Vulnerable {
  * not yield unexpected behavior
  *************************************/
 void vtableWorking() {
+	
 	MyVulnerability safeObject;
-	safeObject.setBuffer(0, 123);
-	cout 	<< "Output should be: Safe Function/n"
-			<< "Function Output : "; safeObject.safe();
+	int index = 0;
+	long value = 0;
+
+	cout << "Enter 0 or 1 for the index to modify: ";
+	cin  >> index;
+
+	cout << "Enter the value: ";
+	cin  >> value;
+
+	if (index >= 0 && index <= 1) {
+		safeObject.setBuffer(value, index);
+		cout 	<< "Output should be: Safe Function/n"
+				<< "Function Output : "; safeObject.safe();
+		return;
+	}
+	else {
+		cout << "Buffer overrun, please enter 0 or 1 for the index" << endl;
+		return;
+	}
 }
 
 /**************************************
@@ -242,10 +261,19 @@ void vtableWorking() {
  * 2. The attacker must have the address to another V-Table pointer or a function pointer.
  *************************************/
 void vtableExploit() {
-	MyVulnerability dangerousObject;
-	dangerousObject.setBuffer(1, Long(&dangerousObject.dangerous());
+	MyVulnerability safeObject;
+	int index = 0;
+	long value = 0;
+
+	cout << "Enter 0 or 1 for the index to modify: ";
+	cin  >> index;
+
+	cout << "Enter the value: ";
+	cin  >> value;
+
+	safeObject.setBuffer(value, index);
 	cout 	<< "Output should be: Safe Function/n"
-			<< "Function Output : "; dangerousObject.safe();
+			<< "Function Output : "; safeObject.safe();
 }
 
 void stackVulnerability(char input[]) {
@@ -267,9 +295,58 @@ void stackExploit() {
 	stackVulnerability(input);
 }
 
-void heapVulnerability() {}
-void heapWorking() {}
-void heapExploit() {}
+/**************************************
+ * Heap Spraying
+ * For a heap smashing vulnerability to exist in the code, the following must be present:
+ * 1. There must be two adjacent heap buffers.
+ * 2. The first buffer must be reachable through external input.
+ * 3. The mechanism to fill the buffer from the external input must not correctly check for the buffer size.
+ * 4. The second buffer must be released before the first.
+ * 5. The first buffer must be overrun (extend beyond the intended limits of the array).
+ *************************************/
+void heapVulnerability(char* buffer1, char* buffer2) {
+
+	delete[] buffer2; // need to delete second buffer first 
+	delete[] buffer1;
+}
+void heapWorking() {
+
+	int numElements = 3;
+
+	char* buffer1 = new char[4]; // requires two buffers on the heap 
+	char* buffer2 = new char[4];
+	string input;
+
+	cout << "Enter 3 characters: " << endl;
+	cout << "buffer Size: " << sizeof(buffer1) << endl;
+
+	cin >> input;
+
+	cout << "sizeof Input: " << input.length() << endl;
+
+	if (input.length() >= 4)
+	{
+		cout << "Please Enter fewer characters: " << endl;
+		return;
+	}
+
+	for (int j = 0; j < numElements; j++)
+	{
+		buffer1[j] = input[j];
+	}
+	cout << "Buffer 1 input: " << buffer1 << endl;
+
+	heapVulnerability(buffer1, buffer2);
+}
+void heapExploit() {
+	char* buffer1 = new char[4]; // requires two buffers on the heap 
+	char* buffer2 = new char[4];
+
+	cout << "Enter 4 or more characters: " << endl;
+	cin >> buffer1;
+
+	heapVulnerability(buffer1, buffer2);
+}
 
 /**************************************
  * Integer Overflow
@@ -334,6 +411,39 @@ void intExploit() {
 	}
 }
 
-void ansiVulnerability() {}
-void ansiWorking() {}
-void ansiExploit() {}
+void ansiVulnerability(short* unicodeText1, int numElements)
+{
+	for (int i = 0; i < numElements; i++)
+	{
+		unicodeText1[i] = 1;
+	}
+
+	cout << unicodeText1[numElements - 1] << endl;
+	cout << "Number of elements: " << numElements << ". Should be 256." << endl;
+	cout << "Element in array index " << (numElements - 1) << " is: " << unicodeText1[numElements - 1] << endl;
+}
+void ansiVulnerability(char* unicodeText1, int numElements)
+{
+	for (int i = 0; i < numElements; i++)
+	{
+		unicodeText1[i] = 'a';
+	}
+
+	cout << unicodeText1[numElements - 1] << endl;
+	cout << "Number of elements: " << numElements << ". Should be 256." << endl;
+	cout << "Element in array index " << (numElements - 1) << " is: " << unicodeText1[numElements - 1] << endl;
+}
+void ansiWorking()
+{
+	cout << "Safe\n";
+	char unicodeText1[256];
+
+	ansiVulnerability(unicodeText1, sizeof(unicodeText1));
+}
+void ansiExploit()
+{
+	cout << "Unsafe\n";
+	short unicodeText1[256];
+
+	ansiVulnerability(unicodeText1, sizeof(unicodeText1));
+}
