@@ -338,6 +338,16 @@ void heapWorking() {
 
 	heapVulnerability(buffer1, buffer2);
 }
+
+/**************************************
+ * Heap Exploit
+ * 1. The attacker must provide more data into the outwardly facing heap
+ *    buffer than the buffer is designed to hold.
+ * 2. The attacker must know the layout of the Memory Control Block (MCB)
+ *    (essentially a linked list) residing just after the buffer.
+ * 3. The attacker must provide a new MCB containing both the location of
+ *    the memory overwrite and the new data to be overwritten.
+ *************************************/
 void heapExploit() {
 	char* buffer1 = new char[4]; // requires two buffers on the heap 
 	char* buffer2 = new char[4];
@@ -391,6 +401,13 @@ void intWorking() {
 	}
 }
 
+/**************************************
+ * Integer Overflow Exploit
+ * 1. Provide input, either a buffer size or a single value, that is directly or
+ *    indirectly used in the vulnerable expression.
+ * 2. The input must exceed the valid bounds of the data-type, resulting in an
+ *    overflow or underflow condition
+ *************************************/
 void intExploit() {
 	int offset;
 	bool safe;
@@ -410,7 +427,12 @@ void intExploit() {
 		cout << "Integer Overflow!\n";
 	}
 }
-
+/**************************************
+ * ANSI-Unicdoe Vulnerability
+ * 1. There must be a buffer where the basetype is greater than one.
+ * 2. Validation of the buffer must check the size of the buffer rather than the
+ *    number of elements in the buffer.
+ *************************************/
 void ansiVulnerability(short* unicodeText1, int numElements)
 {
 	for (int i = 0; i < numElements; i++)
@@ -422,6 +444,13 @@ void ansiVulnerability(short* unicodeText1, int numElements)
 	cout << "Number of elements: " << numElements << ". Should be 256." << endl;
 	cout << "Element in array index " << (numElements - 1) << " is: " << unicodeText1[numElements - 1] << endl;
 }
+
+/**************************************
+ * ANSI-Unicdoe Vulnerability
+ * 1. There must be a buffer where the basetype is greater than one.
+ * 2. Validation of the buffer must check the size of the buffer rather than the
+ *    number of elements in the buffer.
+ *************************************/
 void ansiVulnerability(char* unicodeText1, int numElements)
 {
 	for (int i = 0; i < numElements; i++)
@@ -438,8 +467,18 @@ void ansiWorking()
 	cout << "Safe\n";
 	char unicodeText1[256];
 
-	ansiVulnerability(unicodeText1, sizeof(unicodeText1));
+	ansiVulnerability(unicodeText1, 256);
 }
+
+/**************************************
+ * ANSI-Unicdoe Exploit
+ * 1. The attacker must provide more than half as much data into the
+ *    outwardly facing buffer as it is designed to hold. * 2. From here, a variety of injection attacks are possible. The most likely
+ *    candidates are stack smashing or heap smashing. In the above example,
+ *    the third parameter of the copyUnicodeText() function is the number
+ *    of elements in the string (256 elements), not the size of the string (512
+ *    bytes). The end result is a buffer overrun of 256 bytes.
+ *************************************/
 void ansiExploit()
 {
 	cout << "Unsafe\n";
