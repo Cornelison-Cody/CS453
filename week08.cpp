@@ -213,10 +213,10 @@ void badFunction()
 class Vulnerable
 {
 public:
- virtual void safe(); 		// polymorphic functions
- virtual void dangerous();
+ virtual void safe() {}; 		// polymorphic functions
+ virtual void dangerous() {};
 private:
- long buffer[1]; 				// an array in the class that has
+ long buffer[2]; 				// an array in the class that has
 }; 								// a buffer overrun vulnerability
 
 class MyVulnerability : public Vulnerable {
@@ -224,6 +224,8 @@ class MyVulnerability : public Vulnerable {
 		void safe() { cout << "Safe Function" << endl; }
 		void dangerous() { cout << "Danger Danger" << endl; }
 		void setBuffer(long value, int index) { buffer[index] = value; }
+	private:
+	 long buffer[2];
 };
 
 /**************************************
@@ -232,10 +234,27 @@ class MyVulnerability : public Vulnerable {
  * not yield unexpected behavior
  *************************************/
 void vtableWorking() {
+	
 	MyVulnerability safeObject;
-	safeObject.setBuffer(0, 123);
-	cout 	<< "Output should be: Safe Function/n"
-			<< "Function Output : "; safeObject.safe();
+	int index = 0;
+	long value = 0;
+
+	cout << "Enter 0 or 1 for the index to modify: ";
+	cin  >> index;
+
+	cout << "Enter the value: ";
+	cin  >> value;
+
+	if (index >= 0 && index <= 1) {
+		safeObject.setBuffer(value, index);
+		cout 	<< "Output should be: Safe Function/n"
+				<< "Function Output : "; safeObject.safe();
+		return;
+	}
+	else {
+		cout << "Buffer overrun, please enter 0 or 1 for the index" << endl;
+		return;
+	}
 }
 
 /**************************************
@@ -244,10 +263,19 @@ void vtableWorking() {
  * 2. The attacker must have the address to another V-Table pointer or a function pointer.
  *************************************/
 void vtableExploit() {
-	MyVulnerability dangerousObject;
-	dangerousObject.setBuffer(1, Long(&dangerousObject.dangerous());
+	MyVulnerability safeObject;
+	int index = 0;
+	long value = 0;
+
+	cout << "Enter 0 or 1 for the index to modify: ";
+	cin  >> index;
+
+	cout << "Enter the value: ";
+	cin  >> value;
+
+	safeObject.setBuffer(value, index);
 	cout 	<< "Output should be: Safe Function/n"
-			<< "Function Output : "; dangerousObject.safe();
+			<< "Function Output : "; safeObject.safe();
 }
 
 /**************************************
@@ -329,7 +357,6 @@ void heapWorking() {
 	char* buffer2 = new char[4];
 	string input;
 
-	//assert(buffer1 < buffer2); // buffer 1 must be before buffer 2!
 	cout << "Enter 3 characters: " << endl;
 	cout << "buffer Size: " << sizeof(buffer1) << endl;
 
@@ -351,11 +378,20 @@ void heapWorking() {
 
 	heapVulnerability(buffer1, buffer2);
 }
+
+/**************************************
+ * Heap Exploit
+ * 1. The attacker must provide more data into the outwardly facing heap
+ *    buffer than the buffer is designed to hold.
+ * 2. The attacker must know the layout of the Memory Control Block (MCB)
+ *    (essentially a linked list) residing just after the buffer.
+ * 3. The attacker must provide a new MCB containing both the location of
+ *    the memory overwrite and the new data to be overwritten.
+ *************************************/
 void heapExploit() {
 	char* buffer1 = new char[4]; // requires two buffers on the heap 
 	char* buffer2 = new char[4];
 
-	assert(buffer1 < buffer2); // buffer 1 must be before buffer 2!
 	cout << "Enter 4 or more characters: " << endl;
 	cin >> buffer1;
 
@@ -405,6 +441,13 @@ void intWorking() {
 	}
 }
 
+/**************************************
+ * Integer Overflow Exploit
+ * 1. Provide input, either a buffer size or a single value, that is directly or
+ *    indirectly used in the vulnerable expression.
+ * 2. The input must exceed the valid bounds of the data-type, resulting in an
+ *    overflow or underflow condition
+ *************************************/
 void intExploit() {
 	int offset;
 	bool safe;
@@ -424,7 +467,62 @@ void intExploit() {
 		cout << "Integer Overflow!\n";
 	}
 }
+/**************************************
+ * ANSI-Unicdoe Vulnerability
+ * 1. There must be a buffer where the basetype is greater than one.
+ * 2. Validation of the buffer must check the size of the buffer rather than the
+ *    number of elements in the buffer.
+ *************************************/
+void ansiVulnerability(short* unicodeText1, int numElements)
+{
+	for (int i = 0; i < numElements; i++)
+	{
+		unicodeText1[i] = 1;
+	}
 
-void ansiVulnerability() {}
-void ansiWorking() {}
-void ansiExploit() {}
+	cout << unicodeText1[numElements - 1] << endl;
+	cout << "Number of elements: " << numElements << ". Should be 256." << endl;
+	cout << "Element in array index " << (numElements - 1) << " is: " << unicodeText1[numElements - 1] << endl;
+}
+
+/**************************************
+ * ANSI-Unicdoe Vulnerability
+ * 1. There must be a buffer where the basetype is greater than one.
+ * 2. Validation of the buffer must check the size of the buffer rather than the
+ *    number of elements in the buffer.
+ *************************************/
+void ansiVulnerability(char* unicodeText1, int numElements)
+{
+	for (int i = 0; i < numElements; i++)
+	{
+		unicodeText1[i] = 'a';
+	}
+
+	cout << unicodeText1[numElements - 1] << endl;
+	cout << "Number of elements: " << numElements << ". Should be 256." << endl;
+	cout << "Element in array index " << (numElements - 1) << " is: " << unicodeText1[numElements - 1] << endl;
+}
+void ansiWorking()
+{
+	cout << "Safe\n";
+	char unicodeText1[256];
+
+	ansiVulnerability(unicodeText1, 256);
+}
+
+/**************************************
+ * ANSI-Unicdoe Exploit
+ * 1. The attacker must provide more than half as much data into the
+ *    outwardly facing buffer as it is designed to hold. * 2. From here, a variety of injection attacks are possible. The most likely
+ *    candidates are stack smashing or heap smashing. In the above example,
+ *    the third parameter of the copyUnicodeText() function is the number
+ *    of elements in the string (256 elements), not the size of the string (512
+ *    bytes). The end result is a buffer overrun of 256 bytes.
+ *************************************/
+void ansiExploit()
+{
+	cout << "Unsafe\n";
+	short unicodeText1[256];
+
+	ansiVulnerability(unicodeText1, sizeof(unicodeText1));
+}
