@@ -146,6 +146,10 @@ void Interact::authenticate(const string& userName,
 		authenticated = true;
 		subjectControl = users[id].subjectControl;
 	}
+	else
+	{
+		cout << "\nUsername or password not found. Only public access will be granted.\n\n";
+	}
 }
 
 /****************************************************
