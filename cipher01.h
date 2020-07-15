@@ -1,7 +1,16 @@
 /********************************************************************
 * Header: NUMBERED KEY CIPHER
-*    Implement your cipher here. You can view 'example.h' to see the
-*    completed Caesar Cipher example.
+*    To construct a numbered key cipher start with a key word, phrase, sentence, or
+*    paragraph, extend it by appending any missing letters in alphabetical order, then
+*    number the resulting extended key. Each plaintext letter is then encrypted by one of
+*    the numbers in the key.
+*    Key: "I like ciphers."
+*    Extended key: i l i k e c i p h e r s a b d f g j m n o q t u v w x y z
+*    Numbered key:
+*    00 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21
+*     i  l  i  k  e  c  i  p  h  e  r  s  a  b  d  f  g  j  m  n  o  q
+*    22 23 24 25 26 27 28
+*     t  u  v  w  x  y  z 
 ********************************************************************/
 #ifndef CIPHER01_H
 #define CIPHER01_H
@@ -37,7 +46,38 @@ public:
       // TODO: please format your pseudocode
       // The encrypt pseudocode
       /*
-      PseudcCode goes Here
+      START 
+      STRING key
+      STRING message
+      INT freqLetter
+      CHAR numKey[key.length][freqLetter]
+      INT num
+
+      DISPLAY "Please enter key, letters only"
+      INPUT key 
+
+      DISPLAY "Please enter message, letters only"
+      INPUT message
+
+      CALCULATE key.length
+
+      
+      CALCULATE key missing letters a to z
+
+      FOR key.legnth
+            READ key
+            INSERT missing letters to end of STRING key in alphabetical order
+      END FOR
+      FOR key.length
+            READ key FIND letters posistion in string
+            INCREMENT freqLetter most used letter
+      END FOR
+      FOR key.length
+      
+        SET num = READ key to FIND letters posistion in string
+        SET numKey[i][0] = key
+       
+
       */
 
       str =  "insert the encryption pseudocode\n";
