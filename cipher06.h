@@ -48,7 +48,7 @@ public:
       str += "        ELSE \n";
       str += "        offsetArray[c] = charCount++ % alphabet.length()\n";
       str += "        encryptedText[c] = alphabet[(alpabet.find(c) + offsetArray[c]) % alphabet.length()]\n";
-      str += "    RETURN encryptedText\n";
+      str += "    RETURN encryptedText\n\n";
 
       // The decrypt pseudocode
       str += "decrypt(plainText, password)\n";
@@ -63,7 +63,7 @@ public:
       str += "        ELSE \n";
       str += "        offsetArray[c] = charCount++ % alphabet.length()\n";
       str += "        decryptedText[c] = alphabet[(alphabet.length() + alpabet.find(c) - offsetArray[c]) % alphabet.length()]\n";
-      str += "    RETURN decryptedText\n";
+      str += "    RETURN decryptedText\n\n";
 
       // Generate Alphabet function
       str +=  "generateAlphabet(password)\n";
@@ -72,7 +72,7 @@ public:
       str += "        if p is a - j then add corresponding number to alphabet\n";
       str += "    FOR c is A - Z and 0 - 9\n";
       str += "        add to alphabet as well\n";
-      str += "    RETURN alphabet\n";
+      str += "    RETURN alphabet\n\n";
       
 
       return str;
