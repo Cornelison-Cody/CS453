@@ -1,5 +1,5 @@
 /********************************************************************
-* Header:
+* Header: NUMBERED KEY CIPHER
 *    Implement your cipher here. You can view 'example.h' to see the
 *    completed Caesar Cipher example.
 ********************************************************************/
@@ -12,8 +12,8 @@
 class Cipher01 : public Cipher
 {
 public:
-   virtual std::string getPseudoAuth()  { return "pseudocode author"; }
-   virtual std::string getCipherName()  { return "cipher name"; }
+   virtual std::string getPseudoAuth()  { return "James Clarke"; }
+   virtual std::string getCipherName()  { return "Numbered Key Cipher"; }
    virtual std::string getEncryptAuth() { return "encrypt author"; }
    virtual std::string getDecryptAuth() { return "decrypt author"; }
 
@@ -36,9 +36,17 @@ public:
 
       // TODO: please format your pseudocode
       // The encrypt pseudocode
+      /*
+      PseudcCode goes Here
+      */
+
       str =  "insert the encryption pseudocode\n";
 
       // The decrypt pseudocode
+      /*
+      PseudcCode goes Here
+      */
+
       str += "insert the decryption pseudocode\n";
 
       return str;
