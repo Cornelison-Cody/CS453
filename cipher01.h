@@ -44,51 +44,96 @@ public:
       std::string str;
 
       // TODO: please format your pseudocode
-      // The encrypt pseudocode
-      /*
-      START 
-      STRING key
-      STRING message
-      INT freqLetter
-      CHAR numKey[key.length][freqLetter]
-      INT num
+      // The encrypt pseudocode  
 
-      DISPLAY "Please enter key, letters only"
-      INPUT key 
+      str =  "START 
+          STRING key
+          STRING message
+          INT freqLetter
+          CHAR numKey[key.length][freqLetter]
+          INT num
+          INT crpytText[message.length]
 
-      DISPLAY "Please enter message, letters only"
-      INPUT message
+          DISPLAY Please enter key, letters only
+          INPUT key
 
-      CALCULATE key.length
+          DISPLAY Please enter message, letters only
+          INPUT message
 
-      
-      CALCULATE key missing letters a to z
+          FOR key.legnth
+          READ key
+          INSERT missing letters to end of STRING key in alphabetical order
+          END FOR
+          FOR key.length
+             READ key FIND letters posistion in string
+             INCREMENT freqLetter most used letter
+          END FOR
+          FOR key.length
+             SET num = READ key to FIND letters posistion in string
+             SET numKey[i][0] = key.pos[i]
+          
+             IF key.position == same letter
+                 SET  numKey[letter][++num] = position number
+             ELSE 
+                 SET numKey[letter][num]
+          END FOR 
+           
+          FOR message.length
+              READ message 
+              FIND numKey[letter][0]
+              GET numKey[letter][num]
+              SET cryptText[i]
+          END FOR
 
-      FOR key.legnth
-            READ key
-            INSERT missing letters to end of STRING key in alphabetical order
-      END FOR
-      FOR key.length
-            READ key FIND letters posistion in string
-            INCREMENT freqLetter most used letter
-      END FOR
-      FOR key.length
-      
-        SET num = READ key to FIND letters posistion in string
-        SET numKey[i][0] = key
-       
-
-      */
-
-      str =  "insert the encryption pseudocode\n";
+          DISPLAY cryptText
+          END
+          \n";
 
       // The decrypt pseudocode
-      /*
-      PseudcCode goes Here
-      */
+  
 
-      str += "insert the decryption pseudocode\n";
+      str += "START
+          STRING key
+          STRING message
+          INT freqLetter
+          CHAR numKey[key.length][freqLetter]
+          INT num
+          INT crpytText[]
 
+          DISPLAY Please enter key, letters only
+          INPUT key
+
+          FOR each number until user presses Q
+              DISPLAY Please enter the Cryptext, numbers only
+              INPUT cryptText[i]
+          END FOR
+
+          FOR key.legnth
+          READ key
+          INSERT missing letters to end of STRING key in alphabetical order
+          END FOR
+          FOR key.length
+          READ key FIND letters posistion in string
+          INCREMENT freqLetter most used letter
+          END FOR
+          FOR key.length
+          SET num = READ key to FIND letters posistion in string
+          SET numKey[i][0] = key.pos[i]
+
+          IF key.position == same letter
+          SET  numKey[letter][++num] = position number
+          ELSE
+          SET numKey[letter][num]
+          END FOR \n";
+
+          FOR cryptText.length
+          READ cryptText
+          FIND numKey[i][number]
+          SET message[i] = numKey[letter][number]
+          END FOR
+
+          DISPLAY message
+          END
       return str;
    }
 
