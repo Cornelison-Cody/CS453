@@ -38,35 +38,35 @@ public:
       // The encrypt pseudocode
       str =  "encrypt(plainText, password)\n";
       str += "    string alphabet <- generateAlphabet(password)\n";
-      str =  "    int wordCount = 1\n";
-      str =  "    int charCount = 1\n";
+      str += "    int wordCount = 1\n";
+      str += "    int charCount = 1\n";
       str += "    FOR c is all chars in plainText\n";
-      str =  "        IF c is a space\n";
-      str =  "            wordCount++\n";
-      str =  "            charCount = wordCount % alphabet.length()\n";
-      str =  "            encryptedText[c] = space\n";
-      str =  "        ELSE \n";
-      str =  "        offsetArray[c] = charCount++ % alphabet.length()\n";
+      str += "        IF c is a space\n";
+      str += "            wordCount++\n";
+      str += "            charCount = wordCount % alphabet.length()\n";
+      str += "            encryptedText[c] = space\n";
+      str += "        ELSE \n";
+      str += "        offsetArray[c] = charCount++ % alphabet.length()\n";
       str += "        encryptedText[c] = alphabet[(alpabet.find(c) + offsetArray[c]) % alphabet.length()]\n";
       str += "    RETURN encryptedText\n";
 
       // The decrypt pseudocode
-      str =  "decrypt(plainText, password)\n";
+      str += "decrypt(plainText, password)\n";
       str += "    string alphabet <- generateAlphabet(password)\n";
-      str =  "    int wordCount = 1\n";
-      str =  "    int charCount = 1\n";
+      str += "    int wordCount = 1\n";
+      str += "    int charCount = 1\n";
       str += "    FOR c is all chars in plainText\n";
-      str =  "        IF c is a space\n";
-      str =  "            wordCount++\n";
-      str =  "            charCount = wordCount % alphabet.length()\n";
-      str =  "            decryptedText[c] = space\n";
-      str =  "        ELSE \n";
-      str =  "        offsetArray[c] = charCount++ % alphabet.length()\n";
+      str += "        IF c is a space\n";
+      str += "            wordCount++\n";
+      str += "            charCount = wordCount % alphabet.length()\n";
+      str += "            decryptedText[c] = space\n";
+      str += "        ELSE \n";
+      str += "        offsetArray[c] = charCount++ % alphabet.length()\n";
       str += "        decryptedText[c] = alphabet[(alphabet.length() + alpabet.find(c) - offsetArray[c]) % alphabet.length()]\n";
       str += "    RETURN decryptedText\n";
 
       // Generate Alphabet function
-      str =  "generateAlphabet(password)\n";
+      str +=  "generateAlphabet(password)\n";
       str += "    FOR p is all values of password\n";
       str += "        store upper case p in a std::set alphabet to remove duplicates\n";
       str += "        if p is a - j then add corresponding number to alphabet\n";
