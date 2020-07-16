@@ -19,7 +19,7 @@ public:
    virtual std::string getPseudoAuth()  { return "Jason Steffen"; }
    virtual std::string getCipherName()  { return "vigenere-cipher"; }
    virtual std::string getEncryptAuth() { return "encrypt author"; }
-   virtual std::string getDecryptAuth() { return "decrypt author"; }
+   virtual std::string getDecryptAuth() { return "Cody Cornelison"; }
 
    /***********************************************************
     * GET CIPHER CITATION
