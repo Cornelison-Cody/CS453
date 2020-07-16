@@ -24,6 +24,7 @@ public:
    virtual std::string getPseudoAuth()  { return "James Clarke"; }
    virtual std::string getCipherName()  { return "Numbered Key Cipher"; }
    virtual std::string getEncryptAuth() { return "Cody Cornelison"; }
+   virtual std::string getEncryptAuth() { return "encrypt author"; }
    virtual std::string getDecryptAuth() { return "decrypt author"; }
 
    /***********************************************************
@@ -46,12 +47,75 @@ public:
       // TODO: please format your pseudocode
       // The encrypt pseudocode  
 
-      str =  "START\n STRING key\n STRING message\n INT freqLetter\n CHAR numKey[key.length][freqLetter]\n INT num\n INT crpytText[message.length] DISPLAY Please enter key, letters only\n INPUT key\n DISPLAY Please enter message, letters only\nINPUT message\n FOR key.legnth\n READ key\n INSERT missing letters to end of STRING key in alphabetical order\n END FOR\n FOR key.length\n READ key FIND letters posistion in string\n INCREMENT freqLetter most used letter\n END FOR\n FOR key.length\n SET num = READ key to FIND letters posistion in string SET numKey[i][0] = key.pos[i]\n IF key.position == same letter\n SET  numKey[letter][++num] = position number\n ELSE n SET numKey[letter][num]\n END FOR \n FOR message.length\n READ message \n FIND numKey[letter][0]\n GET numKey[letter][num]\n SET cryptText[i]\n END FOR\n DISPLAY cryptText\n END\n";
+      str =  "START\n";
+      str += "STRING key\n";
+      str += "STRING message\n";
+      str += "INT freqLetter\n";
+      str += "CHAR numKey[key.length][freqLetter]\n";
+      str += "INT num\n";
+      str += "INT crpytText[message.length]\n";
+      str += "DISPLAY Please enter key, letters only\n";
+      str += "INPUT key\n";
+      str += "DISPLAY Please enter message, letters only\n";
+      str += "INPUT message\n";
+      str += "FOR key.legnth\n";
+      str += "READ key\n";
+      str += "INSERT missing letters to end of STRING key in alphabetical order\n";
+      str += "END FOR\n";
+      str += "FOR key.length\n";
+      str += "READ key FIND letters posistion in string\n";
+      str += "INCREMENT freqLetter most used letter\n";
+      str += "END FOR\n";
+      str += "FOR key.length\n";
+      str += "SET num = READ key to FIND letters posistion in string\n";
+      str += "SET numKey[i][0] = key.pos[i]\n";
+      str += "IF key.position == same letter\n";
+      str += "SET  numKey[letter][++num] = position number\n";
+      str += "ELSE n SET numKey[letter][num]\n";
+      str += "END FOR \n";
+      str += "FOR message.length\n";
+      str += "READ message \n";
+      str += "FIND numKey[letter][0]\n";
+      str += "GET numKey[letter][num]\n";
+      str += "SET cryptText[i]\n";
+      str += "END FOR\n";
+      str += "DISPLAY cryptText\n";
+      str += "END\n";
 
       // The decrypt pseudocode
   
 
-      str += "START\n STRING key\n STRING message\n INT freqLetter\n CHAR numKey[key.length][freqLetter]\n INT num\n INT crpytText[]\n DISPLAY Please enter key, letters only\n INPUT key\n FOR each number until user presses Q\n DISPLAY Please enter the Cryptext, numbers only\n INPUT cryptText[i]\n END FOR\n FOR key.legnth\n READ key\n INSERT missing letters to end of STRING key in alphabetical order\n END FOR\n FOR key.length\n READ key FIND letters posistion in string\n INCREMENT freqLetter most used letter\n END FOR\n FOR key.length\n SET num = READ key to FIND letters posistion in string\n SET numKey[i][0] = key.pos[i]\n IF key.position == same letter\n SET  numKey[letter][++num] = position number\n ELSE\n SET numKey[letter][num]\n END FOR\n FOR cryptText.length\n READ cryptText FIND numKey[i][number]\n SET message[i] = numKey[letter][number]\n END FOR\n DISPLAY message\n END\n";
+      str += "START Dycrpt\n";
+      str += "STRING key\n";
+      str += "STRING message\n";
+      str += "INT freqLetter\n";
+      str += "CHAR numKey[key.length][freqLetter]\n";
+      str += "INT num\n INT crpytText[]\n";
+      str += "DISPLAY Please enter key, letters only\n";
+      str += "INPUT key\n FOR each number until user presses Q\n";
+      str += "DISPLAY Please enter the Cryptext, numbers only\n";
+      str += "INPUT cryptText[i]\n END FOR\n";
+      str += "FOR key.legnth\n";
+      str += "READ key\n";
+      str += "INSERT missing letters to end of STRING key in alphabetical order\n";
+      str += "END FOR\n";
+      str += "FOR key.length\n";
+      str += "READ key FIND letters posistion in string\n";
+      str += "INCREMENT freqLetter most used letter\n";
+      str += "END FOR\n";
+      str += "FOR key.length\n";
+      str += "SET num = READ key to FIND letters posistion in string\n";
+      str += "SET numKey[i][0] = key.pos[i]\n";
+      str += "IF key.position == same letter\n";
+      str += "SET  numKey[letter][++num] = position number\n";
+      str += "ELSE\n SET numKey[letter][num]\n";
+      str += "END FOR\n";
+      str += "FOR cryptText.length\n";
+      str += "READ cryptText FIND numKey[i][number]\n";
+      str += "SET message[i] = numKey[letter][number]\n";
+      str += "END FOR\n";
+      str += "DISPLAY message\n";
+      str += "END\n";
       return str;
    }
 
