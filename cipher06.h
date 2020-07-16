@@ -5,6 +5,9 @@
 ********************************************************************/
 #ifndef CIPHER06_H
 #define CIPHER06_H
+#include <unordered_set>
+#include <locale>
+
 
 /********************************************************************
  * CLASS
@@ -23,7 +26,7 @@ public:
     ***********************************************************/
    virtual std::string getCipherCitation()
    {
-      return std::string("https://www.cryptogram.org/downloads/aca.info/ciphers/Ragbaby.pdf");
+      return std::string("https://www.cryptogram.org/downloads/aca.info/ciphers/Ragbaby.pdf and http://www.dickason.com/caching/OHMIKYragbaby.html");
    }
    
    /**********************************************************
@@ -100,6 +103,24 @@ public:
       std::string plainText = cipherText;
       // TODO - Add your code here
       return plainText;
+   }
+
+   /**********************************************************
+ * Generate Alphabet
+ * TODO: ADD description
+ **********************************************************/
+   string generateAlphabet(string password) 
+   {
+       locale loc;
+       string key = password;
+           
+       for (string::size_type i = 0; i < key.length(); ++i)
+           toupper(key[i], loc);
+
+       unordered_set<string>
+           p = { key },
+           c = {};
+
    }
 };
 
