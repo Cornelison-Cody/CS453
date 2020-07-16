@@ -111,21 +111,39 @@ public:
  * Generate Alphabet
  * TODO: ADD description
  **********************************************************/
-   string generateAlphabet(string password) 
+   string generateAlphabet(string password)
    {
        locale loc;
-       string key = password;
-           
-       for (string::size_type i = 0; i < key.length(); ++i)
-           toupper(key[i], loc);
 
        unordered_set<string>
-           p = { key },
+           p = {},
            c = {};
+       c.insert({ "A", "1", "B","2", "C", "3", "D", "4", "E", "5" "F", "6", "G", "7", "H" });
+       c.insert({ "8", "I", "9", "J", "0", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T" });
+       c.insert({ "U", "V", "W", "X", "Y", "Z" });
 
+       for (string::size_type i = 0; i < password.length(); ++i) {
+           if (password[i]//need more
+               ) 
+               {
 
-      return "";
+               p.insert({ toupper(password[i], loc) });
+           }
+           
+           
+           
+       }
+       
 
+       for (int j = 0; j < p.size(); ++j)
+       {
+            
+       }
+
+   return p;
+   });
+
+      
    }
 };
 
