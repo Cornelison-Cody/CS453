@@ -12,8 +12,8 @@
 class Cipher03 : public Cipher
 {
 public:
-   virtual std::string getPseudoAuth()  { return "pseudocode author"; }
-   virtual std::string getCipherName()  { return "cipher name"; }
+   virtual std::string getPseudoAuth()  { return "Bradley Dawson"; }
+   virtual std::string getCipherName()  { return "Baconian Cipher"; }
    virtual std::string getEncryptAuth() { return "encrypt author"; }
    virtual std::string getDecryptAuth() { return "decrypt author"; }
 
@@ -23,7 +23,11 @@ public:
     ***********************************************************/
    virtual std::string getCipherCitation()
    {
-      return std::string("citation");
+      std::string s;
+      s += "Cryptogram.org, ";
+      s += "\"BACONIAN 25 letter plaintext cipher\', \n   retrieved: ";
+      s += "https://www.cryptogram.org/downloads/aca.info/ciphers/Baconian.pdf";
+      return s;
    }
    
    /**********************************************************
@@ -35,11 +39,43 @@ public:
       std::string str;
 
       // TODO: please format your pseudocode
+
       // The encrypt pseudocode
-      str =  "insert the encryption pseudocode\n";
+      str =  "encrypt(plainText, password)\n";
+      str += "   key <- generateKey(letter1, letter2)\n";
+      str += "   FOR p in all values of plaintext\n";
+      str += "      cipherText += key[p]\n";
+      str += "   RETURN cipherText\n\n";
 
       // The decrypt pseudocode
-      str += "insert the decryption pseudocode\n";
+      str +=  "decrypt(cipherText, password)\n";
+      str += "   key <- generateKey(letter1, letter2)\n";
+      str += "   FOR p in all values of cipherText\n";
+      str += "      FOR i in all elements of cipherText\n";
+      str += "         IF key[i] EQUALS p\n";
+      str += "            plainText += key[i]";
+      str += "   RETURN plainText\n\n";
+
+      // geterate key
+      str += "generateKey(password)\n";
+      str += "   a <- password[0]\n";
+      str += "   b <- password[1]\n";
+      str += "   key = {\n";
+      str += "      A : aaaaa, b : aaaab,\n";
+      str += "      C : aaaba, d : aaabb,\n";
+      str += "      E : aabaa, F : aabab,\n";
+      str += "      G : aabba, H : aabbb,\n";
+      str += "      I : abaaa, J : abaaa,\n";
+      str += "      K : abaab, L : ababa,\n";
+      str += "      M : ababb, N : abbaa,\n";
+      str += "      O : abbab, P : abbba,\n";
+      str += "      Q : abbbb, R : baaaa,\n";
+      str += "      S : baaab, T : baaba,\n";
+      str += "      U : baabb, V : baabb,\n";
+      str += "      W : babaa, X : babab,\n";
+      str += "      Y : babba, Z : babbb,\n";
+      str += "   }\n";
+      str += "   RETURN key\n\n";
 
       return str;
    }
