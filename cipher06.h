@@ -5,14 +5,16 @@
 ********************************************************************/
 #ifndef CIPHER06_H
 #define CIPHER06_H
+#include <string>
 #include <unordered_set>
 #include <locale>
 
+using namespace std;
 
 /********************************************************************
  * CLASS
  *******************************************************************/
-class Cipher06 : public Cipher
+class Cipher06 : public Cipher 
 {
 public:
    virtual std::string getPseudoAuth()  { return "Cody Cornelison"; }
@@ -120,6 +122,9 @@ public:
        unordered_set<string>
            p = { key },
            c = {};
+
+
+      return "";
 
    }
 };
