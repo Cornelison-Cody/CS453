@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
     "files.associations": {
         "algorithm": "cpp",
         "cctype": "cpp",
@@ -47,4 +48,9 @@
         "xtr1common": "cpp",
         "xutility": "cpp"
     }
+=======
+   "files.associations": {
+      "vector": "cpp"
+   }
+>>>>>>> a0af6d38072317cac572595a3b0841cf1059e49f
 }
