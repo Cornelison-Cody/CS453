@@ -18,6 +18,8 @@
 #include <set>
 #include <vector>
 
+using namespace std;
+
 const std::string FULLALPHABET = "abcdefghijklmnopqrstuvwxyz";
 
 /********************************************************************
@@ -30,9 +32,6 @@ public:
    virtual std::string getCipherName()  { return "Numbered Key Cipher"; }
    virtual std::string getEncryptAuth() { return "Cody Cornelison"; }
    virtual std::string getDecryptAuth() { return "Eric Mott"; }
-
-   std::string createKey(std::string password);
-   std::string onlyLetters(std::string str);
 
    /***********************************************************
     * GET CIPHER CITATION
@@ -157,7 +156,7 @@ public:
     *       letters to the key. Each letter is assigned a 
     *       numerical value for it's index. 
     **********************************************************/
-   std::string createKey(std::string password) {
+   string createKey(string password) {
       std::string justLetters = onlyLetters(password);
       std::set <char> usedLetters;
 
