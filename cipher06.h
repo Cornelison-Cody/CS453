@@ -6,16 +6,10 @@
 #ifndef CIPHER06_H
 #define CIPHER06_H
 #include <string>
-#include <unordered_set>
-#include <locale>
+#include <vector>
+#include <set>
 
 using namespace std;
-
-//http://www.cplusplus.com/reference/unordered_set/unordered_set/operator=/
-template<class T>
-T cmerge(T a, T b) {
-    T t(a); t.insert(b.begin(), b.end()); return t;
-}
 
 /********************************************************************
  * CLASS
@@ -121,83 +115,118 @@ public:
  **********************************************************/
    string generateAlphabet(string password)
    {
-       locale loc;
-       string alphabet;
+      string fullalphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      string key = password + fullalphabet;
+      string alphabet = "";
+      set <char> usedLetters;
 
-       unordered_set<char>
-           p = {},
-           c = {},
-           a = {};
+      vector <char> p;
 
-       c.insert({ 'A', '1', 'B','2', 'C', '3', 'D', '4', 'E', '5', 'F', '6', 'G', '7', 'H' });
-       c.insert({ '8', 'I', '9', 'J', '0', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T' });
-       c.insert({ 'U', 'V', 'W', 'X', 'Y', 'Z' });
-
-       for (string::size_type i = 0; i < password.length(); ++i)
-             alphabet =  toupper(password[i], loc);
+       for (string::size_type i = 0; i < key.length(); ++i)
+             alphabet +=  toupper(key[i]);
            
        for (string::size_type j = 0; j < alphabet.length(); ++j) {
 
            switch (alphabet[j])
            {
                case 'A':
-                   p.insert({ alphabet[j], '1' });
-                   break;
-
+                  if(usedLetters.find(alphabet[j]) == usedLetters.end()) {
+                     p.push_back(alphabet[j]);
+                     p.push_back('1');
+                     usedLetters.insert(alphabet[j]);
+                  }
+                  break;
                case 'B':
-                   p.insert({ alphabet[j], '2' });
+                   if(usedLetters.find(alphabet[j]) == usedLetters.end()) {
+                   p.push_back(alphabet[j]);
+                   p.push_back('2');
+                   usedLetters.insert(alphabet[j]);
+                  }
                    break;
 
                case 'C':
-                   p.insert({ alphabet[j], '3' });
+                   if(usedLetters.find(alphabet[j]) == usedLetters.end()) {
+                   p.push_back(alphabet[j]);
+                   p.push_back('3');
+                   usedLetters.insert(alphabet[j]);
+                  }
                    break;
 
                case 'D':
-                   p.insert({ alphabet[j], '4' });
+                   if(usedLetters.find(alphabet[j]) == usedLetters.end()) {
+                   p.push_back(alphabet[j]);
+                   p.push_back('4');
+                   usedLetters.insert(alphabet[j]);
+                  }
                    break;
 
                case 'E':
-                   p.insert({ alphabet[j], '5' });
+                   if(usedLetters.find(alphabet[j]) == usedLetters.end()) {
+                   p.push_back(alphabet[j]);
+                   p.push_back('5');
+                   usedLetters.insert(alphabet[j]);
+                  }
                    break;
 
                case 'F':
-                   p.insert({ alphabet[j], '6' });
+                   if(usedLetters.find(alphabet[j]) == usedLetters.end()) {
+                   p.push_back(alphabet[j]);
+                   p.push_back('6');
+                   usedLetters.insert(alphabet[j]);
+                  }
                    break;
 
                case 'G':
-                   p.insert({ alphabet[j], '7' });
-                   break;
+				   if (usedLetters.find(alphabet[j]) == usedLetters.end())
+				   {
+					   p.push_back(alphabet[j]);
+					   p.push_back('7');
+					   usedLetters.insert(alphabet[j]);
+				   }
+				   break;
 
                case 'H':
-                   p.insert({ alphabet[j], '8' });
+                   if(usedLetters.find(alphabet[j]) == usedLetters.end()) {
+                   p.push_back(alphabet[j]);
+                   p.push_back('8');
+                   usedLetters.insert(alphabet[j]);
+                  }
                    break;
 
                case 'I':
-                   p.insert({ alphabet[j], '9' });
+                   if(usedLetters.find(alphabet[j]) == usedLetters.end()) {
+                   p.push_back(alphabet[j]);
+                   p.push_back('9');
+                   usedLetters.insert(alphabet[j]);
+                  }
                    break;
 
                case 'J':
-                   p.insert({ alphabet[j], '0' });
+                   if(usedLetters.find(alphabet[j]) == usedLetters.end()) {
+                   p.push_back(alphabet[j]);
+                   p.push_back('0');
+                   usedLetters.insert(alphabet[j]);
+                  }
                    break;
-
+               case ' ':
+                  break;
                default:
-                   p.insert({ alphabet[j] });
+                   if(usedLetters.find(alphabet[j]) == usedLetters.end()) {
+                   p.push_back(alphabet[j]);
+                   usedLetters.insert(alphabet[j]);
+                  }
             }
            
        }
-       
-       a = cmerge(p, c);
 
        alphabet = "";
 
-       for (char k : a) {
+       for (char k : p) {
            alphabet += k;
      }
 
        return alphabet;
-   }
-
-      
+   }      
    
 };
 
