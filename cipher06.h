@@ -11,6 +11,12 @@
 
 using namespace std;
 
+//http://www.cplusplus.com/reference/unordered_set/unordered_set/operator=/
+template<class T>
+T cmerge(T a, T b) {
+    T t(a); t.insert(b.begin(), b.end()); return t;
+}
+
 /********************************************************************
  * CLASS
  *******************************************************************/
@@ -92,6 +98,8 @@ public:
    {
       std::string cipherText = plainText;
       // TODO - Add your code here
+      cout << generateAlphabet(password);
+      
       return cipherText;
    }
 
@@ -114,37 +122,83 @@ public:
    string generateAlphabet(string password)
    {
        locale loc;
+       string alphabet;
 
-       unordered_set<string>
+       unordered_set<char>
            p = {},
-           c = {};
-       c.insert({ "A", "1", "B","2", "C", "3", "D", "4", "E", "5" "F", "6", "G", "7", "H" });
-       c.insert({ "8", "I", "9", "J", "0", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T" });
-       c.insert({ "U", "V", "W", "X", "Y", "Z" });
+           c = {},
+           a = {};
 
-       for (string::size_type i = 0; i < password.length(); ++i) {
-           if (password[i]//need more
-               ) 
-               {
+       c.insert({ 'A', '1', 'B','2', 'C', '3', 'D', '4', 'E', '5', 'F', '6', 'G', '7', 'H' });
+       c.insert({ '8', 'I', '9', 'J', '0', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T' });
+       c.insert({ 'U', 'V', 'W', 'X', 'Y', 'Z' });
 
-               p.insert({ toupper(password[i], loc) });
-           }
+       for (string::size_type i = 0; i < password.length(); ++i)
+             alphabet =  toupper(password[i], loc);
            
-           
+       for (string::size_type j = 0; j < alphabet.length(); ++j) {
+
+           switch (alphabet[j])
+           {
+               case 'A':
+                   p.insert({ alphabet[j], '1' });
+                   break;
+
+               case 'B':
+                   p.insert({ alphabet[j], '2' });
+                   break;
+
+               case 'C':
+                   p.insert({ alphabet[j], '3' });
+                   break;
+
+               case 'D':
+                   p.insert({ alphabet[j], '4' });
+                   break;
+
+               case 'E':
+                   p.insert({ alphabet[j], '5' });
+                   break;
+
+               case 'F':
+                   p.insert({ alphabet[j], '6' });
+                   break;
+
+               case 'G':
+                   p.insert({ alphabet[j], '7' });
+                   break;
+
+               case 'H':
+                   p.insert({ alphabet[j], '8' });
+                   break;
+
+               case 'I':
+                   p.insert({ alphabet[j], '9' });
+                   break;
+
+               case 'J':
+                   p.insert({ alphabet[j], '0' });
+                   break;
+
+               default:
+                   p.insert({ alphabet[j] });
+            }
            
        }
        
+       a = cmerge(p, c);
 
-       for (int j = 0; j < p.size(); ++j)
-       {
-            
-       }
+       alphabet = "";
 
-   return p;
-   });
+       for (char k : a) {
+           alphabet += k;
+     }
+
+       return alphabet;
+   }
 
       
-   }
+   
 };
 
 #endif // CIPHER06_H
