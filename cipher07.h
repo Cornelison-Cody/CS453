@@ -5,6 +5,7 @@
 ********************************************************************/
 #ifndef CIPHER07_H
 #define CIPHER07_H
+#include <vector>
 
 /********************************************************************
  * CLASS
@@ -12,10 +13,10 @@
 class Cipher07 : public Cipher
 {
 public:
-   virtual std::string getPseudoAuth()  { return "pseudocode author"; }
-   virtual std::string getCipherName()  { return "cipher name"; }
-   virtual std::string getEncryptAuth() { return "encrypt author"; }
-   virtual std::string getDecryptAuth() { return "decrypt author"; }
+   virtual std::string getPseudoAuth()  { return "Benjamin Thaut"; }
+   virtual std::string getCipherName()  { return "One-Time Pad"; }
+   virtual std::string getEncryptAuth() { return "Bradley Dawson"; }
+   virtual std::string getDecryptAuth() { return "James Clarke"; }
 
    /***********************************************************
     * GET CIPHER CITATION
@@ -71,6 +72,28 @@ public:
                                const std::string & password)
    {
       std::string cipherText = plainText;
+      std::string pswd = password;
+      //convert to uppercase
+      for (int i = 0; i < cipherText.length(); i++)
+      {
+         cipherText[i] = toupper(cipherText[i]);
+      }
+      //convert password to uppercase
+      for (int i = 0; i < pswd.length(); i++)
+      {
+         pswd[i] = toupper(pswd[i]);
+      }
+      
+      //add the password to the plaintext
+      for (int i = 0; i < cipherText.length() && i < pswd.length(); i++)
+      {
+         // add the original plaintext to the password key
+         // mod 26 will give us the correct letter from 0 - 26
+         // and handle looping past Z
+         // so add 65 to get back to the correct ascii range
+         cipherText[i] = (((cipherText[i]) + (pswd[i])) % 26) + 65;
+      }
+
       // TODO - Add your code here
       return cipherText;
    }
@@ -79,13 +102,40 @@ public:
     * DECRYPT
     * TODO: ADD description
     **********************************************************/
-   virtual std::string decrypt(const std::string & cipherText,
-                               const std::string & password)
+   virtual std::string decrypt(const std::string& cipherText,
+       const std::string& password)
    {
-      std::string plainText = cipherText;
-      // TODO - Add your code here
+       // insert the decryption pseudocode
+       // Pass the ciphertext to this function
+       std::string plainText = "";
+       std::string pswd = password;
+       vector <int> numKey;
+       int input;
+
+       // Ask the user for each individual number key for each letter  
+       // This represents the password and should be a new vector containing the same numbers in the password vector  
+
+       for (int i = 0; i < pswd.length(); i++){
+           pswd[i] = toupper(pswd[i]);
+       }
+
+       for (int i = 0; i < pswd.length(); i++){
+            cout << "Enter Number " << i+1 << " key: "  << endl;
+            numKey.push_back(input);
+            cin >> input;
+       }
+
+      // Loop through the new number key vector and the ciphertext and shift the characters of the ciphertext back by the numbers in the vector one by one
+      // Decryption is finished, display the plaintext
+       for (char k : numKey) {
+
+           //plainText[k] = cipherText[k] + pswd[k] - numKey[k];
+           plainText += cipherText[k] + pswd[k] - numKey[k];
+       }
       return plainText;
+
    }
+
 };
 
-#endif // CIPHER07_H
+#endif // CIPHER07_H 

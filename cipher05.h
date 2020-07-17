@@ -186,7 +186,250 @@ public:
    {
       std::string cipherText = plainText;
       // TODO - Add your code here
-      return cipherText;
+	  std::string cipherPassword = password;
+
+
+	  // build encoding array
+	  char cipherColumn[] = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
+
+	  char aArray[] = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
+	  char bArray[] = { 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'a' };
+	  char cArray[] = { 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'a', 'b' };
+	  char dArray[] = { 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'a', 'b', 'c' };
+	  char eArray[] = { 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'a', 'b', 'c', 'd' };
+	  char fArray[] = { 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'a', 'b', 'c', 'd', 'e' };
+	  char gArray[] = { 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'a', 'b', 'c', 'd', 'e', 'f' };
+	  char hArray[] = { 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'a', 'b', 'c', 'd', 'e', 'f', 'g' };
+	  char iArray[] = { 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h' };
+	  char jArray[] = { 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i' };
+	  char kArray[] = { 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j' };
+	  char lArray[] = { 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k' };
+	  char mArray[] = { 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l' };
+	  char nArray[] = { 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm' };
+	  char oArray[] = { 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n' };
+	  char pArray[] = { 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o' };
+	  char qArray[] = { 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p' };
+	  char rArray[] = { 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q' };
+	  char sArray[] = { 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r' };
+	  char tArray[] = { 't', 'u', 'v', 'w', 'x', 'y', 'z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's' };
+	  char uArray[] = { 'u', 'v', 'w', 'x', 'y', 'z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't' };
+	  char vArray[] = { 'v', 'w', 'x', 'y', 'z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u' };
+	  char wArray[] = { 'w', 'x', 'y', 'z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v' };
+	  char xArray[] = { 'x', 'y', 'z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w' };
+	  char yArray[] = { 'y', 'z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x' };
+	  char zArray[] = { 'z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y' };
+
+	  int passwordIterator = 0;
+
+	  // loop thru and convert the message
+	  for (int i = 0; cipherText[i]; i++)
+	  {
+		  char cipherLetter = cipherText[i];
+		  int cipherNumber = -1;
+		  int cipherLetterNumber = -1;
+		  int passwordLetterNumber = -1;
+		  char passwordLetter = password[passwordIterator];
+
+		  if (isalpha(cipherText[i])) {
+			  cipherLetter = tolower(cipherText[i]);
+		  }
+
+		  //find column number
+		  cipherLetterNumber = cipherLetter - 97;
+
+		  // find column number
+		  switch (cipherLetterNumber) {
+		  case 0:
+			  cipherNumber = 0;
+			  break;
+		  case 1:
+			  cipherNumber = 1;
+			  break;
+		  case 2:
+			  cipherNumber = 2;
+			  break;
+		  case 3:
+			  cipherNumber = 3;
+			  break;
+		  case 4:
+			  cipherNumber = 4;
+			  break;
+		  case 5:
+			  cipherNumber = 5;
+			  break;
+		  case 6:
+			  cipherNumber = 6;
+			  break;
+		  case 7:
+			  cipherNumber = 7;
+			  break;
+		  case 8:
+			  cipherNumber = 8;
+			  break;
+		  case 9:
+			  cipherNumber = 9;
+			  break;
+		  case 10:
+			  cipherNumber = 10;
+			  break;
+		  case 11:
+			  cipherNumber = 11;
+			  break;
+		  case 12:
+			  cipherNumber = 12;
+			  break;
+		  case 13:
+			  cipherNumber = 13;
+			  break;
+		  case 14:
+			  cipherNumber = 14;
+			  break;
+		  case 15:
+			  cipherNumber = 15;
+			  break;
+		  case 16:
+			  cipherNumber = 16;
+			  break;
+		  case 17:
+			  cipherNumber = 17;
+			  break;
+		  case 18:
+			  cipherNumber = 18;
+			  break;
+		  case 19:
+			  cipherNumber = 19;
+			  break;
+		  case 20:
+			  cipherNumber = 20;
+			  break;
+		  case 21:
+			  cipherNumber = 21;
+			  break;
+		  case 22:
+			  cipherNumber = 22;
+			  break;
+		  case 23:
+			  cipherNumber = 23;
+			  break;
+		  case 24:
+			  cipherNumber = 24;
+			  break;
+		  case 25:
+			  cipherNumber = 25;
+			  break;
+		  }
+
+		  if (cipherNumber == -1)
+		  {
+			  cipherText[i] = '0';
+		  }
+
+		  // find the row of the plaintext and set the ciphertext's letter
+		  if (isalpha(password[passwordIterator])) {
+			  cipherPassword[passwordIterator] = tolower(password[passwordIterator]);
+
+			  char tempCharacter = cipherPassword[passwordIterator];
+
+			  // switch character to ASCII number
+			  passwordLetterNumber = tempCharacter - 97;
+		  }
+
+		  if (cipherNumber != -1)
+		  {
+			  switch (passwordLetterNumber) {
+			  case 0:
+				  cipherText[i] = aArray[cipherNumber];
+				  break;
+			  case 1:
+				  cipherText[i] = bArray[cipherNumber];
+				  break;
+			  case 2:
+				  cipherText[i] = cArray[cipherNumber];
+				  break;
+			  case 3:
+				  cipherText[i] = dArray[cipherNumber];
+				  break;
+			  case 4:
+				  cipherText[i] = eArray[cipherNumber];
+				  break;
+			  case 5:
+				  cipherText[i] = fArray[cipherNumber];
+				  break;
+			  case 6:
+				  cipherText[i] = gArray[cipherNumber];
+				  break;
+			  case 7:
+				  cipherText[i] = hArray[cipherNumber];
+				  break;
+			  case 8:
+				  cipherText[i] = iArray[cipherNumber];
+				  break;
+			  case 9:
+				  cipherText[i] = jArray[cipherNumber];
+				  break;
+			  case 10:
+				  cipherText[i] = kArray[cipherNumber];
+				  break;
+			  case 11:
+				  cipherText[i] = lArray[cipherNumber];
+				  break;
+			  case 12:
+				  cipherText[i] = mArray[cipherNumber];
+				  break;
+			  case 13:
+				  cipherText[i] = nArray[cipherNumber];
+				  break;
+			  case 14:
+				  cipherText[i] = oArray[cipherNumber];
+				  break;
+			  case 15:
+				  cipherText[i] = pArray[cipherNumber];
+				  break;
+			  case 16:
+				  cipherText[i] = qArray[cipherNumber];
+				  break;
+			  case 17:
+				  cipherText[i] = rArray[cipherNumber];
+				  break;
+			  case 18:
+				  cipherText[i] = sArray[cipherNumber];
+				  break;
+			  case 19:
+				  cipherText[i] = tArray[cipherNumber];
+				  break;
+			  case 20:
+				  cipherText[i] = uArray[cipherNumber];
+				  break;
+			  case 21:
+				  cipherText[i] = vArray[cipherNumber];
+				  break;
+			  case 22:
+				  cipherText[i] = wArray[cipherNumber];
+				  break;
+			  case 23:
+				  cipherText[i] = xArray[cipherNumber];
+				  break;
+			  case 24:
+				  cipherText[i] = yArray[cipherNumber];
+				  break;
+			  case 25:
+				  cipherText[i] = zArray[cipherNumber];
+				  break;
+			  }
+		  }
+
+		  // if thru password start password over
+		  if (!password[passwordIterator + 1])
+		  {
+			  passwordIterator = 0;
+		  }
+		  else
+		  {
+			  passwordIterator++;
+		  }
+
+	  }
+	  return cipherText;
    }
 
    /**********************************************************
