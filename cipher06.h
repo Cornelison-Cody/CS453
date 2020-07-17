@@ -91,9 +91,23 @@ public:
                                const std::string & password)
    {
       std::string cipherText = plainText;
-      // TODO - Add your code here
-      cout << generateAlphabet(password);
       
+      string alphabet = generateAlphabet(password);
+      int wordCount = 1;
+      int charCount = 1;
+      int offsetArray[36];
+
+      for (char c : plainText) {
+          if (c == ' ') {
+              wordCount++;
+              charCount = wordCount % alphabet.length();
+              cipherText[c] = ' ';
+          }
+          else {
+              offsetArray[c] = charCount++ % alphabet.length();
+              cipherText[c] = alphabet[(alphabet.find(c) + offsetArray[c]) % alphabet.length()];
+          }
+       }
       return cipherText;
    }
 
