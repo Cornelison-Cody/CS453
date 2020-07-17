@@ -12,9 +12,9 @@
 class Cipher07 : public Cipher
 {
 public:
-   virtual std::string getPseudoAuth()  { return "pseudocode author"; }
-   virtual std::string getCipherName()  { return "cipher name"; }
-   virtual std::string getEncryptAuth() { return "encrypt author"; }
+   virtual std::string getPseudoAuth()  { return "Benjamin Thaut"; }
+   virtual std::string getCipherName()  { return "One-Time Pad"; }
+   virtual std::string getEncryptAuth() { return "Bradley Dawson"; }
    virtual std::string getDecryptAuth() { return "decrypt author"; }
 
    /***********************************************************
@@ -71,6 +71,28 @@ public:
                                const std::string & password)
    {
       std::string cipherText = plainText;
+      std::string pswd = password;
+      //convert to uppercase
+      for (int i = 0; i < cipherText.length(); i++)
+      {
+         cipherText[i] = toupper(cipherText[i]);
+      }
+      //convert password to uppercase
+      for (int i = 0; i < pswd.length(); i++)
+      {
+         pswd[i] = toupper(pswd[i]);
+      }
+
+      //add the password to the plaintext
+      for (int i = 0; i < cipherText.length() && i < pswd.length(); i++)
+      {
+         // add the original plaintext to the password key
+         // mod 26 will give us the correct letter from 0 - 26
+         // and handle looping past Z
+         // so add 65 to get back to the correct ascii range
+         cipherText[i] = (((cipherText[i]) + (pswd[i])) % 26) + 65;
+      }
+
       // TODO - Add your code here
       return cipherText;
    }
