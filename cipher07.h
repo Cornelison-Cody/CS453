@@ -5,6 +5,7 @@
 ********************************************************************/
 #ifndef CIPHER07_H
 #define CIPHER07_H
+#include <vector>
 
 /********************************************************************
  * CLASS
@@ -82,7 +83,7 @@ public:
       {
          pswd[i] = toupper(pswd[i]);
       }
-
+      
       //add the password to the plaintext
       for (int i = 0; i < cipherText.length() && i < pswd.length(); i++)
       {
@@ -101,13 +102,40 @@ public:
     * DECRYPT
     * TODO: ADD description
     **********************************************************/
-   virtual std::string decrypt(const std::string & cipherText,
-                               const std::string & password)
+   virtual std::string decrypt(const std::string& cipherText,
+       const std::string& password)
    {
-      std::string plainText = cipherText;
-      // TODO - Add your code here
+       // insert the decryption pseudocode
+       // Pass the ciphertext to this function
+       std::string plainText = "";
+       std::string pswd = password;
+       vector <int> numKey;
+       int input;
+
+       // Ask the user for each individual number key for each letter  
+       // This represents the password and should be a new vector containing the same numbers in the password vector  
+
+       for (int i = 0; i < pswd.length(); i++){
+           pswd[i] = toupper(pswd[i]);
+       }
+
+       for (int i = 0; i < pswd.length(); i++){
+            cout << "Enter Number " << i+1 << " key: "  << endl;
+            numKey.push_back(input);
+            cin >> input;
+       }
+
+      // Loop through the new number key vector and the ciphertext and shift the characters of the ciphertext back by the numbers in the vector one by one
+      // Decryption is finished, display the plaintext
+       for (char k : numKey) {
+
+           //plainText[k] = cipherText[k] + pswd[k] - numKey[k];
+           plainText += cipherText[k] + pswd[k] - numKey[k];
+       }
       return plainText;
+
    }
+
 };
 
-#endif // CIPHER07_H
+#endif // CIPHER07_H 
