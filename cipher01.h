@@ -15,7 +15,10 @@
 #ifndef CIPHER01_H
 #define CIPHER01_H
 
-const string FULLALPHABET = "abcdefghijklmnopqrstuvwxyz";
+#include <set>
+#include <vector>
+
+const std::string FULLALPHABET = "abcdefghijklmnopqrstuvwxyz";
 
 /********************************************************************
  * CLASS
@@ -28,8 +31,8 @@ public:
    virtual std::string getEncryptAuth() { return "Cody Cornelison"; }
    virtual std::string getDecryptAuth() { return "Eric Mott"; }
 
-   string createKey(string password);
-   string onlyLetters(string str);
+   std::string createKey(std::string password);
+   std::string onlyLetters(std::string str);
 
    /***********************************************************
     * GET CIPHER CITATION
@@ -154,12 +157,12 @@ public:
     *       letters to the key. Each letter is assigned a 
     *       numerical value for it's index. 
     **********************************************************/
-   string createKey(string password) {
-      string justLetters = onlyLetters(password);
-      set <char> usedLetters;
+   std::string createKey(std::string password) {
+      std::string justLetters = onlyLetters(password);
+      std::set <char> usedLetters;
 
-      vector<char> keyVector;
-      string key = "";
+      std::vector<char> keyVector;
+      std::string key = "";
 
       for (char c : justLetters) {
          keyVector.push_back(c);
@@ -185,8 +188,8 @@ public:
     *       other text is dropped. 
     **********************************************************/
 
-   string onlyLetters(string str) {
-      string cleanString = "";
+   std::string onlyLetters(std::string str) {
+      std::string cleanString = "";
 
       for (char& c : str) {
          if (isalpha(c)) {

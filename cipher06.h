@@ -8,6 +8,7 @@
 #include <string>
 #include <vector>
 #include <set>
+#include <iterator>
 
 using namespace std;
 
@@ -90,24 +91,26 @@ public:
    virtual std::string encrypt(const std::string & plainText,
                                const std::string & password)
    {
-      std::string cipherText = plainText;
+      std::string cipherText = "";
       
       string alphabet = generateAlphabet(password);
       int wordCount = 1;
       int charCount = 1;
       int offsetArray[36];
+      int letterLocation = 0;
 
-      for (char c : plainText) {
-          if (c == ' ') {
+      for ( int i = 0; i < plainText.length(); i++) {
+          if (plainText[i] == ' ') {
               wordCount++;
               charCount = wordCount % alphabet.length();
-              cipherText[c] = ' ';
+              cipherText += ' ';
           }
           else {
-              offsetArray[c] = charCount++ % alphabet.length();
-              cipherText[c] = alphabet[(alphabet.find(c) + offsetArray[c]) % alphabet.length()];
+              letterLocation = alphabet.find(toupper(plainText[i]));
+              offsetArray[i] = charCount++ % alphabet.length();
+              cipherText += alphabet[(letterLocation + offsetArray[i]) % alphabet.length()];
           }
-       }
+      }
       return cipherText;
    }
 
