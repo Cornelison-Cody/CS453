@@ -37,6 +37,7 @@ public:
       // TODO: please format your pseudocode
       // The encrypt pseudocode
       str =  "insert the encryption pseudocode\n";
+      str
 
       // The decrypt pseudocode
       str += "insert the decryption pseudocode\n";
