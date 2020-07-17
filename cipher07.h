@@ -15,7 +15,7 @@ public:
    virtual std::string getPseudoAuth()  { return "Benjamin Thaut"; }
    virtual std::string getCipherName()  { return "One-Time Pad"; }
    virtual std::string getEncryptAuth() { return "Bradley Dawson"; }
-   virtual std::string getDecryptAuth() { return "decrypt author"; }
+   virtual std::string getDecryptAuth() { return "James Clarke"; }
 
    /***********************************************************
     * GET CIPHER CITATION
