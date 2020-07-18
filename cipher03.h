@@ -92,8 +92,8 @@ public:
       std::string cipherText = plainText;
       
       //FC and SC stand for first character and second character.
-      char FC = password[0];
-      char SC = password[1];
+      char FC = tolower(password[0]);
+      char SC = tolower(password[1]);
       std::string codedMessage = "";
 
       for (int i = 0; cipherText[i]; i++)
