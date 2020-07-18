@@ -62,7 +62,11 @@ public:
     ***********************************************************/
    virtual std::string getCipherCitation()
    {
-      return std::string("https://www.cryptogram.org/downloads/aca.info/ciphers/NumberedKey.pdf");
+       std::string s;
+       s += "American Crptogram Association (2016-2019), ";
+       s += "\"Numbered Key\', \n   retrieved: ";
+       s += ("https://www.cryptogram.org/downloads/aca.info/ciphers/NumberedKey.pdf");
+       return s;
    }
    
    /**********************************************************
