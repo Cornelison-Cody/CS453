@@ -5,14 +5,17 @@
 ********************************************************************/
 #ifndef CIPHER06_H
 #define CIPHER06_H
-#include <unordered_set>
-#include <locale>
+#include <string>
+#include <vector>
+#include <set>
+#include <iterator>
 
+using namespace std;
 
 /********************************************************************
  * CLASS
  *******************************************************************/
-class Cipher06 : public Cipher
+class Cipher06 : public Cipher 
 {
 public:
    virtual std::string getPseudoAuth()  { return "Cody Cornelison"; }
@@ -88,8 +91,26 @@ public:
    virtual std::string encrypt(const std::string & plainText,
                                const std::string & password)
    {
-      std::string cipherText = plainText;
-      // TODO - Add your code here
+      std::string cipherText = "";
+      
+      string alphabet = generateAlphabet(password);
+      int wordCount = 1;
+      int charCount = 1;
+      int offsetArray[36];
+      int letterLocation = 0;
+
+      for ( int i = 0; i < plainText.length(); i++) {
+          if (plainText[i] == ' ') {
+              wordCount++;
+              charCount = wordCount % alphabet.length();
+              cipherText += ' ';
+          }
+          else {
+              letterLocation = alphabet.find(toupper(plainText[i]));
+              offsetArray[i] = charCount++ % alphabet.length();
+              cipherText += alphabet[(letterLocation + offsetArray[i]) % alphabet.length()];
+          }
+      }
       return cipherText;
    }
 
@@ -109,19 +130,121 @@ public:
  * Generate Alphabet
  * TODO: ADD description
  **********************************************************/
-   string generateAlphabet(string password) 
+   string generateAlphabet(string password)
    {
-       locale loc;
-       string key = password;
-           
+      string fullalphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      string key = password + fullalphabet;
+      string alphabet = "";
+      set <char> usedLetters;
+
+      vector <char> p;
+
        for (string::size_type i = 0; i < key.length(); ++i)
-           toupper(key[i], loc);
+             alphabet +=  toupper(key[i]);
+           
+       for (string::size_type j = 0; j < alphabet.length(); ++j) {
 
-       unordered_set<string>
-           p = { key },
-           c = {};
+           switch (alphabet[j])
+           {
+               case 'A':
+                  if(usedLetters.find(alphabet[j]) == usedLetters.end()) {
+                     p.push_back(alphabet[j]);
+                     p.push_back('1');
+                     usedLetters.insert(alphabet[j]);
+                  }
+                  break;
+               case 'B':
+                   if(usedLetters.find(alphabet[j]) == usedLetters.end()) {
+                   p.push_back(alphabet[j]);
+                   p.push_back('2');
+                   usedLetters.insert(alphabet[j]);
+                  }
+                   break;
 
-   }
+               case 'C':
+                   if(usedLetters.find(alphabet[j]) == usedLetters.end()) {
+                   p.push_back(alphabet[j]);
+                   p.push_back('3');
+                   usedLetters.insert(alphabet[j]);
+                  }
+                   break;
+
+               case 'D':
+                   if(usedLetters.find(alphabet[j]) == usedLetters.end()) {
+                   p.push_back(alphabet[j]);
+                   p.push_back('4');
+                   usedLetters.insert(alphabet[j]);
+                  }
+                   break;
+
+               case 'E':
+                   if(usedLetters.find(alphabet[j]) == usedLetters.end()) {
+                   p.push_back(alphabet[j]);
+                   p.push_back('5');
+                   usedLetters.insert(alphabet[j]);
+                  }
+                   break;
+
+               case 'F':
+                   if(usedLetters.find(alphabet[j]) == usedLetters.end()) {
+                   p.push_back(alphabet[j]);
+                   p.push_back('6');
+                   usedLetters.insert(alphabet[j]);
+                  }
+                   break;
+
+               case 'G':
+				   if (usedLetters.find(alphabet[j]) == usedLetters.end())
+				   {
+					   p.push_back(alphabet[j]);
+					   p.push_back('7');
+					   usedLetters.insert(alphabet[j]);
+				   }
+				   break;
+
+               case 'H':
+                   if(usedLetters.find(alphabet[j]) == usedLetters.end()) {
+                   p.push_back(alphabet[j]);
+                   p.push_back('8');
+                   usedLetters.insert(alphabet[j]);
+                  }
+                   break;
+
+               case 'I':
+                   if(usedLetters.find(alphabet[j]) == usedLetters.end()) {
+                   p.push_back(alphabet[j]);
+                   p.push_back('9');
+                   usedLetters.insert(alphabet[j]);
+                  }
+                   break;
+
+               case 'J':
+                   if(usedLetters.find(alphabet[j]) == usedLetters.end()) {
+                   p.push_back(alphabet[j]);
+                   p.push_back('0');
+                   usedLetters.insert(alphabet[j]);
+                  }
+                   break;
+               case ' ':
+                  break;
+               default:
+                   if(usedLetters.find(alphabet[j]) == usedLetters.end()) {
+                   p.push_back(alphabet[j]);
+                   usedLetters.insert(alphabet[j]);
+                  }
+            }
+           
+       }
+
+       alphabet = "";
+
+       for (char k : p) {
+           alphabet += k;
+     }
+
+       return alphabet;
+   }      
+   
 };
 
 #endif // CIPHER06_H

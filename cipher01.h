@@ -15,6 +15,36 @@
 #ifndef CIPHER01_H
 #define CIPHER01_H
 
+#include <set>
+#include <vector>
+#include <time.h>
+#include <map>
+
+using namespace std;
+
+const std::string FULLALPHABET = "abcdefghijklmnopqrstuvwxyz";
+
+/********************************************************************
+ * STRUCT TO HOLD KEY TYPE
+ *******************************************************************/
+struct cipherKeyItem {
+   vector <int> numberedKey;
+   int currentKey;
+
+   string getKey() {
+      string key = to_string(numberedKey[currentKey]);
+
+      currentKey = (currentKey + 1) % numberedKey.size();
+
+      return key;
+   }
+
+   void addKey(int key) {
+      numberedKey.push_back(key);
+   }
+};
+
+
 /********************************************************************
  * CLASS
  *******************************************************************/
@@ -24,7 +54,7 @@ public:
    virtual std::string getPseudoAuth()  { return "James Clarke"; }
    virtual std::string getCipherName()  { return "Numbered Key Cipher"; }
    virtual std::string getEncryptAuth() { return "Cody Cornelison"; }
-   virtual std::string getDecryptAuth() { return "decrypt author"; }
+   virtual std::string getDecryptAuth() { return "Eric Mott"; }
 
    /***********************************************************
     * GET CIPHER CITATION
@@ -125,8 +155,26 @@ public:
    virtual std::string encrypt(const std::string & plainText, 
                                const std::string & password)
    {
-      std::string cipherText = plainText;
-      // TODO - Add your code here
+      std::string cipherText = "";
+      string key = createKey(password);
+      map <char, cipherKeyItem> cipher;
+      int numberCipherValue = 0;
+
+      for (char a : FULLALPHABET) {
+         cipher.insert({a, cipherKeyItem()});
+      }
+
+      for (char c : key) {
+         cipher[c].addKey(numberCipherValue++);
+      }
+
+      for (char c : onlyLetters(plainText)) {
+         if (cipherText.length() > 0 ) {
+            cipherText += " ";
+         }
+         cipherText += cipher[c].getKey();
+      }
+
       return cipherText;
    }
 
@@ -140,6 +188,56 @@ public:
       std::string plainText = cipherText;
       // TODO - Add your code here
       return plainText;
+   }
+
+   /**********************************************************
+    * CREATEKEY
+    * TODO: Creates the cipher key by inserting the letters of
+    *       the password into the key then adding all remaining
+    *       letters to the key. Each letter is assigned a 
+    *       numerical value for it's index. 
+    **********************************************************/
+   string createKey(string password) {
+      std::string justLetters = onlyLetters(password);
+      std::set <char> usedLetters;
+
+      std::vector<char> keyVector;
+      std::string key = "";
+
+      for (char c : justLetters) {
+         keyVector.push_back(c);
+         usedLetters.insert(c);
+      }
+
+      for (char c : FULLALPHABET) {
+         if(usedLetters.find(c) == usedLetters.end()) {
+            keyVector.push_back(c);
+         }
+      }
+
+      for (char c : keyVector) {
+         key += c;
+      }
+
+      return key;
+   }
+   /**********************************************************
+    * ONLYLETTERS
+    * TODO: ADD description
+    *       This cipher only allows letters to be used. All
+    *       other text is dropped. 
+    **********************************************************/
+
+   std::string onlyLetters(std::string str) {
+      std::string cleanString = "";
+
+      for (char& c : str) {
+         if (isalpha(c)) {
+            cleanString += tolower(c);
+         }
+      }
+
+      return cleanString;
    }
 };
 
