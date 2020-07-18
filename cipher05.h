@@ -234,87 +234,84 @@ public:
 			  cipherLetter = tolower(cipherText[i]);
 		  }
 
-		  //find column number
-		  cipherLetterNumber = cipherLetter - 97;
-
 		  // find column number
-		  switch (cipherLetterNumber) {
-		  case 0:
+		  switch (cipherLetter) {
+		  case 97:
 			  cipherNumber = 0;
 			  break;
-		  case 1:
+		  case 98:
 			  cipherNumber = 1;
 			  break;
-		  case 2:
+		  case 99:
 			  cipherNumber = 2;
 			  break;
-		  case 3:
+		  case 100:
 			  cipherNumber = 3;
 			  break;
-		  case 4:
+		  case 101:
 			  cipherNumber = 4;
 			  break;
-		  case 5:
+		  case 102:
 			  cipherNumber = 5;
 			  break;
-		  case 6:
+		  case 103:
 			  cipherNumber = 6;
 			  break;
-		  case 7:
+		  case 104:
 			  cipherNumber = 7;
 			  break;
-		  case 8:
+		  case 105:
 			  cipherNumber = 8;
 			  break;
-		  case 9:
+		  case 106:
 			  cipherNumber = 9;
 			  break;
-		  case 10:
+		  case 107:
 			  cipherNumber = 10;
 			  break;
-		  case 11:
+		  case 108:
 			  cipherNumber = 11;
 			  break;
-		  case 12:
+		  case 109:
 			  cipherNumber = 12;
 			  break;
-		  case 13:
+		  case 110:
 			  cipherNumber = 13;
 			  break;
-		  case 14:
+		  case 111:
 			  cipherNumber = 14;
 			  break;
-		  case 15:
+		  case 112:
 			  cipherNumber = 15;
 			  break;
-		  case 16:
+		  case 113:
 			  cipherNumber = 16;
 			  break;
-		  case 17:
+		  case 114:
 			  cipherNumber = 17;
 			  break;
-		  case 18:
+		  case 115:
 			  cipherNumber = 18;
 			  break;
-		  case 19:
+		  case 116:
 			  cipherNumber = 19;
 			  break;
-		  case 20:
+		  case 117:
 			  cipherNumber = 20;
 			  break;
-		  case 21:
+		  case 118:
 			  cipherNumber = 21;
 			  break;
-		  case 22:
+		  case 119:
 			  cipherNumber = 22;
 			  break;
-		  case 23:
+		  case 120:
 			  cipherNumber = 23;
 			  break;
-		  case 24:
+		  case 121:
 			  cipherNumber = 24;
 			  break;
-		  case 25:
+		  case 122:
 			  cipherNumber = 25;
 			  break;
 		  }
@@ -327,96 +324,92 @@ public:
 		  // find the row of the plaintext and set the ciphertext's letter
 		  if (isalpha(password[passwordIterator])) {
 			  cipherPassword[passwordIterator] = tolower(password[passwordIterator]);
-
-			  char tempCharacter = cipherPassword[passwordIterator];
-
-			  // switch character to ASCII number
-			  passwordLetterNumber = tempCharacter - 97;
 		  }
 
 		  if (cipherNumber != -1)
 		  {
-			  switch (passwordLetterNumber) {
-			  case 0:
+			  switch (cipherPassword[passwordIterator]) {
+			  case 97:
 				  cipherText[i] = aArray[cipherNumber];
 				  break;
-			  case 1:
+			  case 98:
 				  cipherText[i] = bArray[cipherNumber];
 				  break;
-			  case 2:
+			  case 99:
 				  cipherText[i] = cArray[cipherNumber];
 				  break;
-			  case 3:
+			  case 100:
 				  cipherText[i] = dArray[cipherNumber];
 				  break;
-			  case 4:
+			  case 101:
 				  cipherText[i] = eArray[cipherNumber];
 				  break;
-			  case 5:
+			  case 102:
 				  cipherText[i] = fArray[cipherNumber];
 				  break;
-			  case 6:
+			  case 103:
 				  cipherText[i] = gArray[cipherNumber];
 				  break;
-			  case 7:
+			  case 104:
 				  cipherText[i] = hArray[cipherNumber];
 				  break;
-			  case 8:
+			  case 105:
 				  cipherText[i] = iArray[cipherNumber];
 				  break;
-			  case 9:
+			  case 106:
 				  cipherText[i] = jArray[cipherNumber];
 				  break;
-			  case 10:
+			  case 107:
 				  cipherText[i] = kArray[cipherNumber];
 				  break;
-			  case 11:
+			  case 108:
 				  cipherText[i] = lArray[cipherNumber];
 				  break;
-			  case 12:
+			  case 109:
 				  cipherText[i] = mArray[cipherNumber];
 				  break;
-			  case 13:
+			  case 110:
 				  cipherText[i] = nArray[cipherNumber];
 				  break;
-			  case 14:
+			  case 111:
 				  cipherText[i] = oArray[cipherNumber];
 				  break;
-			  case 15:
+			  case 112:
 				  cipherText[i] = pArray[cipherNumber];
 				  break;
-			  case 16:
+			  case 113:
 				  cipherText[i] = qArray[cipherNumber];
 				  break;
-			  case 17:
+			  case 114:
 				  cipherText[i] = rArray[cipherNumber];
 				  break;
-			  case 18:
+			  case 115:
 				  cipherText[i] = sArray[cipherNumber];
 				  break;
-			  case 19:
+			  case 116:
 				  cipherText[i] = tArray[cipherNumber];
 				  break;
-			  case 20:
+			  case 117:
 				  cipherText[i] = uArray[cipherNumber];
 				  break;
-			  case 21:
+			  case 118:
 				  cipherText[i] = vArray[cipherNumber];
 				  break;
-			  case 22:
+			  case 119:
 				  cipherText[i] = wArray[cipherNumber];
 				  break;
-			  case 23:
+			  case 120:
 				  cipherText[i] = xArray[cipherNumber];
 				  break;
-			  case 24:
+			  case 121:
 				  cipherText[i] = yArray[cipherNumber];
 				  break;
-			  case 25:
+			  case 122:
 				  cipherText[i] = zArray[cipherNumber];
 				  break;
 			  }
 		  }
+		  
 
 		  // if thru password start password over
 		  if (!password[passwordIterator + 1])
