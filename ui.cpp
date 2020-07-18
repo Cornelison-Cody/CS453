@@ -18,7 +18,7 @@
 #include "cipher02.h"
 #include "cipher03.h"
 #include "cipher04.h"
-#include "cipher05.h"
+// #include "cipher05.h"
 #include "cipher06.h"
 #include "cipher07.h"
 
@@ -50,7 +50,7 @@ public:
       cipher.push_back(new Cipher02);
       cipher.push_back(new Cipher03);
       cipher.push_back(new Cipher04);
-      cipher.push_back(new Cipher05);
+      // cipher.push_back(new Cipher05);
       cipher.push_back(new Cipher06);
       cipher.push_back(new Cipher07);
    }

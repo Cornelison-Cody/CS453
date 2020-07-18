@@ -185,8 +185,32 @@ public:
    virtual std::string decrypt(const std::string & cipherText, 
                                const std::string & password)
    {
-      std::string plainText = cipherText;
-      // TODO - Add your code here
+      std::string plainText = "";
+      string newCipherText = cipherText;
+      newCipherText += " ";
+      string key = createKey(password);
+      vector <char> tempString;
+      string number = "";
+      vector <int> indexes;
+
+      for (char c : newCipherText) {
+         if (c != ' ') {
+            tempString.push_back(c);
+         }
+         else {
+            for (char d : tempString) {
+               number += d;
+            }
+            indexes.push_back(stoi(number));
+            tempString.clear();
+            number = "";
+         }
+      }
+
+      for (int i : indexes) {
+         plainText += key[i];
+      }
+
       return plainText;
    }
 

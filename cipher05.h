@@ -8,6 +8,7 @@
 #define CIPHER05_H
 
 #include <string>
+#include <map>
 
 
 /********************************************************************
@@ -232,8 +233,10 @@ public:
 
 		  if (isalpha(cipherText[i])) {
 			  cipherLetter = tolower(cipherText[i]);
+			  //cipherNumber = cipherLetter - 'a';
 		  }
 
+	// *** Switch can be replaced by line 235
 		  // find column number
 		  switch (cipherLetter) {
 		  case 97:
@@ -433,7 +436,217 @@ public:
                                const std::string & password)
    {
       std::string plainText = cipherText;
-      // TODO - Add your code here
+	  	std::string cipherPassword = password;
+		map <char, char[26]> passwordArrays;
+
+
+	  	// build encoding array
+	  char fullAlphabet[] = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
+
+	  
+
+	  int passwordIterator = 0;
+
+	  // loop thru and convert the message
+	  for (int i = 0; plainText[i]; i++)
+	  {
+		  char cipherLetter = plainText[i];
+		  int cipherNumber = -1;
+		  int cipherLetterNumber = -1;
+		  int passwordLetterNumber = -1;
+		  char passwordLetter = password[passwordIterator];
+
+		  if (isalpha(plainText[i])) {
+			  cipherLetter = tolower(plainText[i]);
+		  }
+
+			switch (cipherPassword[passwordIterator]) {
+			  case 97:
+				  plainText[i] = aArray[cipherNumber];
+				  break;
+			  case 98:
+				  plainText[i] = bArray[cipherNumber];
+				  break;
+			  case 99:
+				  plainText[i] = cArray[cipherNumber];
+				  break;
+			  case 100:
+				  plainText[i] = dArray[cipherNumber];
+				  break;
+			  case 101:
+				  plainText[i] = eArray[cipherNumber];
+				  break;
+			  case 102:
+				  plainText[i] = fArray[cipherNumber];
+				  break;
+			  case 103:
+				  plainText[i] = gArray[cipherNumber];
+				  break;
+			  case 104:
+				  plainText[i] = hArray[cipherNumber];
+				  break;
+			  case 105:
+				  plainText[i] = iArray[cipherNumber];
+				  break;
+			  case 106:
+				  plainText[i] = jArray[cipherNumber];
+				  break;
+			  case 107:
+				  plainText[i] = kArray[cipherNumber];
+				  break;
+			  case 108:
+				  plainText[i] = lArray[cipherNumber];
+				  break;
+			  case 109:
+				  plainText[i] = mArray[cipherNumber];
+				  break;
+			  case 110:
+				  plainText[i] = nArray[cipherNumber];
+				  break;
+			  case 111:
+				  plainText[i] = oArray[cipherNumber];
+				  break;
+			  case 112:
+				  plainText[i] = pArray[cipherNumber];
+				  break;
+			  case 113:
+				  plainText[i] = qArray[cipherNumber];
+				  break;
+			  case 114:
+				  plainText[i] = rArray[cipherNumber];
+				  break;
+			  case 115:
+				  plainText[i] = sArray[cipherNumber];
+				  break;
+			  case 116:
+				  plainText[i] = tArray[cipherNumber];
+				  break;
+			  case 117:
+				  plainText[i] = uArray[cipherNumber];
+				  break;
+			  case 118:
+				  plainText[i] = vArray[cipherNumber];
+				  break;
+			  case 119:
+				  plainText[i] = wArray[cipherNumber];
+				  break;
+			  case 120:
+				  plainText[i] = xArray[cipherNumber];
+				  break;
+			  case 121:
+				  plainText[i] = yArray[cipherNumber];
+				  break;
+			  case 122:
+				  plainText[i] = zArray[cipherNumber];
+				  break;
+			  }
+		  }
+
+		  //cipher letter is what index of password array?
+
+		  // find column number
+		  switch (cipherLetter) {
+		  case 97:
+			  cipherNumber = 0;
+			  break;
+		  case 98:
+			  cipherNumber = 1;
+			  break;
+		  case 99:
+			  cipherNumber = 2;
+			  break;
+		  case 100:
+			  cipherNumber = 3;
+			  break;
+		  case 101:
+			  cipherNumber = 4;
+			  break;
+		  case 102:
+			  cipherNumber = 5;
+			  break;
+		  case 103:
+			  cipherNumber = 6;
+			  break;
+		  case 104:
+			  cipherNumber = 7;
+			  break;
+		  case 105:
+			  cipherNumber = 8;
+			  break;
+		  case 106:
+			  cipherNumber = 9;
+			  break;
+		  case 107:
+			  cipherNumber = 10;
+			  break;
+		  case 108:
+			  cipherNumber = 11;
+			  break;
+		  case 109:
+			  cipherNumber = 12;
+			  break;
+		  case 110:
+			  cipherNumber = 13;
+			  break;
+		  case 111:
+			  cipherNumber = 14;
+			  break;
+		  case 112:
+			  cipherNumber = 15;
+			  break;
+		  case 113:
+			  cipherNumber = 16;
+			  break;
+		  case 114:
+			  cipherNumber = 17;
+			  break;
+		  case 115:
+			  cipherNumber = 18;
+			  break;
+		  case 116:
+			  cipherNumber = 19;
+			  break;
+		  case 117:
+			  cipherNumber = 20;
+			  break;
+		  case 118:
+			  cipherNumber = 21;
+			  break;
+		  case 119:
+			  cipherNumber = 22;
+			  break;
+		  case 120:
+			  cipherNumber = 23;
+			  break;
+		  case 121:
+			  cipherNumber = 24;
+			  break;
+		  case 122:
+			  cipherNumber = 25;
+			  break;
+		  }
+
+		  if (cipherNumber == -1)
+		  {
+			  plainText[i] = '0';
+		  }
+
+		  // find the row of the plaintext and set the ciphertext's letter
+		  if (isalpha(password[passwordIterator])) {
+			  cipherPassword[passwordIterator] = tolower(password[passwordIterator]);
+		  }
+
+		  // if thru password start password over
+		  if (!password[passwordIterator + 1])
+		  {
+			  passwordIterator = 0;
+		  }
+		  else
+		  {
+			  passwordIterator++;
+		  }
+		}
+
       return plainText;
    }
 };
