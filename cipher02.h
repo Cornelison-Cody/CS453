@@ -98,9 +98,9 @@ public:
 	{
 		std::string cipherText = plainText;
 		// TODO - Add your code here
-
-		std::string vertKeyword;
-		std::string horizKeyword;
+		
+		std::string vertKeyword = password.substr(0, 5);
+		std::string horizKeyword = password.substr(6, 5);
 		char rowKey[5];
 		char colKey[5];
 		std::string message;
@@ -113,14 +113,6 @@ public:
 		 {'h', 'k', 'q', 'r', 'y'},
 		 {'i', 'p', 'z', 'n', 't'},
 		 {'u', 'a', 'd', 'g', 'l'} };
-
-		//This key is used for encrypting each row with the letters input
-		std::cout << "Enter first keyword (5 nonrepeating characters): ";
-		std::cin >> vertKeyword;
-
-		//This key is used for encrypting each column with the letters input
-		std::cout << "Enter second keyword (5 nonrepeating characters): ";
-		std::cin >> horizKeyword;
 
 		//plainText was already grabbed from the user
 		message = plainText;
@@ -194,8 +186,8 @@ public:
 	virtual std::string decrypt(const std::string& cipherText,
 		const std::string& password)
 	{
-		std::string vertKeyword;
-		std::string horizKeyword;
+		std::string vertKeyword = password.substr(0, 5);
+		std::string horizKeyword = password.substr(6, 5);
 		std::string plainText = "";
 
 		//CheckerBoard or look up array for encryption
@@ -205,14 +197,6 @@ public:
 		 {'h', 'k', 'q', 'r', 'y'},
 		 {'i', 'p', 'z', 'n', 't'},
 		 {'u', 'a', 'd', 'g', 'l'} };
-
-		//This key is used for encrypting each row with the letters input
-		std::cout << "Enter first keyword (5 nonrepeating characters): ";
-		std::cin >> vertKeyword;
-
-		//This key is used for encrypting each column with the letters input
-		std::cout << "Enter second keyword (5 nonrepeating characters): ";
-		std::cin >> horizKeyword;
 
 		for (int i = 0; i < cipherText.length() - 1; i++)
 		{
