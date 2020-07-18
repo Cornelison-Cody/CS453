@@ -123,7 +123,7 @@ public:
            // mod 26 will give us the correct letter from 0 - 26
            // and handle looping past Z
            // so add 65 to get back to the correct ascii range
-           plainText[i] = (((plainText[i]) - (pswd[i])) % 26) + 65;
+           plainText[i] = (((plainText[i]) - ((pswd[i]) - 26)) % 26) + 65;
        }
       return plainText;
 
