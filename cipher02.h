@@ -25,7 +25,11 @@ public:
 	 ***********************************************************/
 	virtual std::string getCipherCitation()
 	{
-		return std::string("citation");
+		std::string citation;
+		citation += "crytogram.org (2020), ";
+		citation += "\"CHECKERBOARD (60-90 pairs) cipher\", \n   retrieved: ";
+		citation += "https://www.cryptogram.org/downloads/aca.info/ciphers/Checkerboard.pdf";
+		return citation;
 	}
 
 	/**********************************************************
@@ -38,53 +42,53 @@ public:
 
 		// TODO: please format your pseudocode
 		// The encrypt pseudocode
-		str = "checkerboardCipher()";
-		str = +"string vertKeyword";
-		str = +"string horizKeyword";
-		str = +"char rowKey[5]";
-		str = +"char columnKey[5]";
-		str = +"string message";
-		str = +"string cipherMessage";
+		str = "checkerboardCipher()\n";
+		str += "string vertKeyword\n";
+		str += "string horizKeyword\n";
+		str += "char rowKey[5]\n";
+		str += "char columnKey[5]\n";
+		str += "string message\n";
+		str += "string cipherMessage\n";
 
-		str = +"char alphabetArray[5][5] = {";
-		str = +"{'w', 'c', 'e', 'o', 'v'},";
-		str = +"{'x', 'b', 'm', 's', 'f'},";
-		str = +"{'h', 'k', 'q', 'r', 'y'},";
-		str = +"{'i', 'p', 'z', 'n', 't'},";
-		str = +"{'u', 'a', 'd', 'g', 'l'}}";
+		str += "char alphabetArray[5][5] = {\n";
+		str += "{'w', 'c', 'e', 'o', 'v'},\n";
+		str += "{'x', 'b', 'm', 's', 'f'},\n";
+		str += "{'h', 'k', 'q', 'r', 'y'},\n";
+		str += "{'i', 'p', 'z', 'n', 't'},\n";
+		str += "{'u', 'a', 'd', 'g', 'l'}}\n";
 
-		str = +"display 'Enter first keyword (5 nonrepeating characters): '";
-		str = +"accept vertKeyword";
-		str = +"display 'Enter second keyword (5 nonrepeating characters): '";
-		str = +"accept horizKeyword";
-		str = +"display 'Enter message: '";
+		str += "display 'Enter first keyword (5 nonrepeating characters): '\n";
+		str += "accept vertKeyword";
+		str += "display 'Enter second keyword (5 nonrepeating characters): '\n";
+		str += "accept horizKeyword\n";
+		str += "display 'Enter message: '\n";
 
-		str = +"convert vertKeyword to vertKey";
-		str = +"convert horizKeyword to columnKey";
+		str += "convert vertKeyword to vertKey\n";
+		str += "convert horizKeyword to columnKey\n";
 
-		str = +"loop thru message";
-		str = +"loop thru alphabetArray";
-		str = +"match message character to alphabetArray character";
-		str = +"if message character is 'j' match to alphabetArray character 'i'";
-		str = +"if not alpha character then skip";
-		str = +"cipherMessage =+ rowKey[alphabetArray row value]";
-		str = +"cipherMessage =+ columnKey(alphabetArray column value]";
+		str += "loop thru message\n";
+		str += "loop thru alphabetArray\n";
+		str += "match message character to alphabetArray character\n";
+		str += "if message character is 'j' match to alphabetArray character 'i'\n";
+		str += "if not alpha character then skip\n";
+		str += "cipherMessage += rowKey[alphabetArray row value]\n";
+		str += "cipherMessage += columnKey(alphabetArray column value]\n";
 
-		str = +"return codedCheckerboard";
+		str += "return codedCheckerboard\n\n";
 
 		// The decrypt pseudocode
-		str += "decodeCheckerboard(codedCheckerboard)";
-		str = +"string decodeMessage";
-		str = +"loop thru codedCheckerboard";
-		str = +"if codedCheckerboard index is even";
-		str = +"match codedCheckerboard character to rowKey character";
-		str = +"alphabetArrayRow = rowKey index";
-		str = +"if codedCheckerboard index is odd";
-		str = +"match codedCheckerboard character to columnKey character";
-		str = +"alphabetArrayColumn = columnKey index";
-		str = +"decodedMessage =+ alphabetArray[alphabetArrayRow][alphabetArrayColumn]";
+		str += "decodeCheckerboard(codedCheckerboard)\n";
+		str += "string decodeMessage\n";
+		str += "loop thru codedCheckerboard\n";
+		str += "if codedCheckerboard index is even\n";
+		str += "match codedCheckerboard character to rowKey character\n";
+		str += "alphabetArrayRow = rowKey index\n";
+		str += "if codedCheckerboard index is odd\n";
+		str += "match codedCheckerboard character to columnKey character\n";
+		str += "alphabetArrayColumn = columnKey index\n";
+		str += "decodedMessage += alphabetArray[alphabetArrayRow][alphabetArrayColumn]\n";
 
-		str = +"return decodedMessage";
+		str += "return decodedMessage\n\n";
 
 		return str;
 	}
