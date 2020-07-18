@@ -18,10 +18,32 @@
 #include <set>
 #include <vector>
 #include <time.h>
+#include <map>
 
 using namespace std;
 
 const std::string FULLALPHABET = "abcdefghijklmnopqrstuvwxyz";
+
+/********************************************************************
+ * STRUCT TO HOLD KEY TYPE
+ *******************************************************************/
+struct cipherKeyItem {
+   vector <int> numberedKey;
+   int currentKey;
+
+   string getKey() {
+      string key = to_string(numberedKey[currentKey]);
+
+      currentKey = (currentKey + 1) % numberedKey.size();
+
+      return key;
+   }
+
+   void addKey(int key) {
+      numberedKey.push_back(key);
+   }
+};
+
 
 /********************************************************************
  * CLASS
@@ -133,8 +155,26 @@ public:
    virtual std::string encrypt(const std::string & plainText, 
                                const std::string & password)
    {
-      std::string cipherText = plainText;
-      // TODO - Add your code here
+      std::string cipherText = "";
+      string key = createKey(password);
+      map <char, cipherKeyItem> cipher;
+      int numberCipherValue = 0;
+
+      for (char a : FULLALPHABET) {
+         cipher.insert({a, cipherKeyItem()});
+      }
+
+      for (char c : key) {
+         cipher[c].addKey(numberCipherValue++);
+      }
+
+      for (char c : onlyLetters(plainText)) {
+         if (cipherText.length() > 0 ) {
+            cipherText += " ";
+         }
+         cipherText += cipher[c].getKey();
+      }
+
       return cipherText;
    }
 
