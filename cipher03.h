@@ -6,15 +6,18 @@
 #ifndef CIPHER03_H
 #define CIPHER03_H
 
+#include <string>
+#include <iostream>
+#include <map>
 /********************************************************************
  * CLASS
  *******************************************************************/
-class Cipher03 : public Cipher
+class Cipher03: public Cipher
 {
 public:
    virtual std::string getPseudoAuth()  { return "Bradley Dawson"; }
    virtual std::string getCipherName()  { return "Baconian Cipher"; }
-   virtual std::string getEncryptAuth() { return "encrypt author"; }
+   virtual std::string getEncryptAuth() { return "Jason Steffen"; }
    virtual std::string getDecryptAuth() { return "decrypt author"; }
 
    /***********************************************************
@@ -88,7 +91,128 @@ public:
                                const std::string & password)
    {
       std::string cipherText = plainText;
-      // TODO - Add your code here
+      
+      //FC and SC stand for first character and second character.
+      char FC = tolower(password[0]);
+      char SC = tolower(password[1]);
+      std::string codedMessage = "";
+
+      for (int i = 0; cipherText[i]; i++)
+      {
+         if (isalpha(cipherText[i])) 
+			  tolower(cipherText[i]);
+		  
+
+         switch (cipherText[i]) 
+         {
+		   case 'a':
+			  codedMessage += FC; codedMessage += FC; codedMessage += FC; codedMessage += FC; codedMessage += FC;
+			  break;
+         
+         case 'b':
+           codedMessage += FC; codedMessage += FC; codedMessage += FC; codedMessage += FC; codedMessage += SC;
+			  break;
+         
+
+         case 'c':
+           codedMessage += FC; codedMessage += FC; codedMessage += FC; codedMessage += SC; codedMessage += FC;
+			  break;
+
+         case 'd':
+			  codedMessage += FC; codedMessage += FC; codedMessage += FC; codedMessage += SC; codedMessage += SC;
+			  break;  
+
+         case 'e':
+			  codedMessage += FC; codedMessage += FC; codedMessage += SC; codedMessage += FC; codedMessage += FC;
+			  break;
+
+         case 'f':
+			  codedMessage += FC; codedMessage += FC; codedMessage += SC; codedMessage += FC; codedMessage += SC;
+			  break;
+
+         case 'g':
+			  codedMessage += FC; codedMessage += FC; codedMessage += SC; codedMessage += SC; codedMessage += FC;
+			  break;
+
+         case 'h':
+			  codedMessage += FC; codedMessage += FC; codedMessage += SC; codedMessage += SC; codedMessage += SC;
+			  break;
+
+         case 'i':
+			  codedMessage += FC; codedMessage += SC; codedMessage += FC; codedMessage += FC; codedMessage += FC;
+			  break;
+
+         case 'j':
+			  codedMessage += FC; codedMessage += SC; codedMessage += FC; codedMessage += FC; codedMessage += FC;
+			  break;
+
+         case 'k':
+			  codedMessage += FC; codedMessage += SC; codedMessage += FC; codedMessage += FC; codedMessage += SC;
+			  break;
+
+         case 'l':
+			  codedMessage += FC; codedMessage += SC; codedMessage += FC; codedMessage += SC; codedMessage += FC;
+			  break;
+
+         case 'm':
+			  codedMessage += FC; codedMessage += SC; codedMessage += FC; codedMessage += SC; codedMessage += SC;
+			  break;
+
+         case 'n':
+			  codedMessage += FC; codedMessage += SC; codedMessage += SC; codedMessage += FC; codedMessage += FC;
+			  break;
+
+         case 'o':
+			  codedMessage += FC; codedMessage += SC; codedMessage += SC; codedMessage += FC; codedMessage += SC;
+			  break;
+
+         case 'p':
+			  codedMessage += FC; codedMessage += SC; codedMessage += SC; codedMessage += SC; codedMessage += FC;
+			  break;
+
+         case 'q':
+			  codedMessage += FC; codedMessage += SC; codedMessage += SC; codedMessage += SC; codedMessage += SC;
+			  break;
+
+         case 'r':
+			  codedMessage += SC; codedMessage += FC; codedMessage += FC; codedMessage += FC; codedMessage += FC;
+			  break;
+
+         case 's':
+			  codedMessage += SC; codedMessage += FC; codedMessage += FC; codedMessage += FC; codedMessage += SC;
+			  break;
+
+         case 't':
+			  codedMessage += SC; codedMessage += FC; codedMessage += FC; codedMessage += SC; codedMessage += FC;
+			  break;
+
+         case 'u':
+			  codedMessage += SC; codedMessage += FC; codedMessage += FC; codedMessage += SC; codedMessage += SC;
+			  break;
+
+         case 'v':
+			  codedMessage += SC; codedMessage += FC; codedMessage += FC; codedMessage += SC; codedMessage += SC;
+			  break;
+
+         case 'w':
+			  codedMessage += SC; codedMessage += FC; codedMessage += SC; codedMessage += FC; codedMessage += FC;
+			  break;
+
+         case 'x':
+			  codedMessage += SC; codedMessage += FC; codedMessage += SC; codedMessage += FC; codedMessage += SC;
+			  break;
+
+         case 'y':
+			  codedMessage += SC; codedMessage += FC; codedMessage += SC; codedMessage += SC; codedMessage += FC;
+			  break;
+
+         case 'z':
+			  codedMessage += SC; codedMessage += FC; codedMessage += SC; codedMessage += SC; codedMessage += SC;
+			  break;
+         }
+
+      }
+      cipherText = codedMessage;
       return cipherText;
    }
 
@@ -99,9 +223,241 @@ public:
    virtual std::string decrypt(const std::string & cipherText,
                                const std::string & password)
    {
-      std::string plainText = cipherText;
-      // TODO - Add your code here
-      return plainText;
+       std::string plainText = cipherText;
+       // TODO - Add your code here
+
+       plainText = "";
+       std::map<std::string, char> key;
+       char a = tolower(password[0]);
+       char b = tolower(password[1]);
+
+       std::string code = "";
+
+       code = a;
+       code += a;
+       code += a;
+       code += a;
+       code += a;
+
+       key[code] = 'A';
+
+       code = a;
+       code += a;
+       code += a;
+       code += a;
+       code += b;
+
+       key[code] = 'B';
+
+       code = a;
+       code += a;
+       code += a;
+       code += b;
+       code += a;
+
+       key[code] = 'C';
+
+       code = a;
+       code += a;
+       code += a;
+       code += b;
+       code += b;
+
+       key[code] = 'D';
+
+       code = a;
+       code += a;
+       code += b;
+       code += a;
+       code += a;
+
+       key[code] = 'E';
+
+       code = a;
+       code += a;
+       code += b;
+       code += a;
+       code += b;
+
+       key[code] = 'F';
+
+       code = a;
+       code += a;
+       code += b;
+       code += b;
+       code += a;
+
+       key[code] = 'G';
+
+       code = a;
+       code += a;
+       code += b;
+       code += b;
+       code += b;
+
+       key[code] = 'H';
+
+       code = a;
+       code += b;
+       code += a;
+       code += a;
+       code += a;
+
+       key[code] = 'I';
+
+       code = a;
+       code += b;
+       code += a;
+       code += a;
+       code += b;
+
+       key[code] = 'J';
+
+       code = a;
+       code += b;
+       code += a;
+       code += b;
+       code += a;
+
+       key[code] = 'K';
+
+       code = a;
+       code += b;
+       code += a;
+       code += b;
+       code += b;
+
+       key[code] = 'L';
+
+       code = a;
+       code += b;
+       code += b;
+       code += a;
+       code += a;
+
+       key[code] = 'M';
+
+       code = a;
+       code += b;
+       code += b;
+       code += a;
+       code += b;
+
+       key[code] = 'N';
+
+       code = a;
+       code += b;
+       code += b;
+       code += b;
+       code += a;
+
+       key[code] = 'O';
+
+       code = a;
+       code += b;
+       code += b;
+       code += b;
+       code += b;
+
+       key[code] = 'P';
+
+       code = b;
+       code += a;
+       code += a;
+       code += a;
+       code += a;
+
+       key[code] = 'Q';
+
+       code = b;
+       code += a;
+       code += a;
+       code += a;
+       code += b;
+
+       key[code] = 'R';
+
+       code = b;
+       code += a;
+       code += a;
+       code += b;
+       code += a;
+
+       key[code] = 'S';
+
+       code = b;
+       code += a;
+       code += a;
+       code += b;
+       code += b;
+
+       key[code] = 'T';
+
+       code = b;
+       code += a;
+       code += b;
+       code += a;
+       code += a;
+
+       key[code] = 'U';
+
+       code = b;
+       code += a;
+       code += b;
+       code += a;
+       code += b;
+
+       key[code] = 'V';
+
+       code = b;
+       code += a;
+       code += b;
+       code += b;
+       code += a;
+
+       key[code] = 'W';
+
+       code = b;
+       code += a;
+       code += b;
+       code += b;
+       code += b;
+
+       key[code] = 'X';
+
+       code = b;
+       code += b;
+       code += a;
+       code += a;
+       code += a;
+
+       key[code] = 'Y';
+
+       code = b;
+       code += b;
+       code += a;
+       code += a;
+       code += b;
+
+       key[code] = 'Z';
+
+       int count = 1;
+       code = "";
+
+       for (int i = 0; i < cipherText.length(); i++)
+       {
+           code += cipherText[i];
+
+           if (count == 5)
+           {
+               plainText += key.find(code)->second;
+               code = "";
+               count = 0;
+           }
+           count++;
+       }
+
+       return plainText;
    }
 };
 
