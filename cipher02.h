@@ -194,7 +194,55 @@ public:
 	virtual std::string decrypt(const std::string& cipherText,
 		const std::string& password)
 	{
-		std::string plainText = cipherText;
+		std::string vertKeyword;
+		std::string horizKeyword;
+		std::string plainText = "";
+
+		//CheckerBoard or look up array for encryption
+		char alphabetArray[5][5] = {
+		 {'w', 'c', 'e', 'o', 'v'},
+		 {'x', 'b', 'm', 's', 'f'},
+		 {'h', 'k', 'q', 'r', 'y'},
+		 {'i', 'p', 'z', 'n', 't'},
+		 {'u', 'a', 'd', 'g', 'l'} };
+
+		//This key is used for encrypting each row with the letters input
+		std::cout << "Enter first keyword (5 nonrepeating characters): ";
+		std::cin >> vertKeyword;
+
+		//This key is used for encrypting each column with the letters input
+		std::cout << "Enter second keyword (5 nonrepeating characters): ";
+		std::cin >> horizKeyword;
+
+		for (int i = 0; i < cipherText.length() - 1; i++)
+		{
+			// get the rowKeys from the ciphertext
+			char columnChar = cipherText[i++];
+			char rowChar = cipherText[i++];
+
+			int columnIndex = 0;
+			int rowIndex = 0;
+			// match the keys with the index of the keywords
+			for (int j = 0; j < vertKeyword.length(); j++)
+			{
+				if (columnChar == vertKeyword[j])
+				{
+					columnIndex = j;
+					break;
+				}
+			}
+			for (int j = 0; j < horizKeyword.length(); j++)
+			{
+				if (rowChar == horizKeyword[j])
+				{
+					rowIndex = j;
+					break;
+				}
+			}
+
+			plainText += alphabetArray[columnIndex][rowIndex];
+		}
+
 		// TODO - Add your code here
 		return plainText;
 	}
