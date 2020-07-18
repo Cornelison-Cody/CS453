@@ -222,9 +222,241 @@ public:
    virtual std::string decrypt(const std::string & cipherText,
                                const std::string & password)
    {
-      std::string plainText = cipherText;
-      // TODO - Add your code here
-      return plainText;
+       std::string plainText = cipherText;
+       // TODO - Add your code here
+
+       plainText = "";
+       std::map<std::string, char> key;
+       char a = tolower(password[0]);
+       char b = tolower(password[1]);
+
+       std::string code = "";
+
+       code = a;
+       code += a;
+       code += a;
+       code += a;
+       code += a;
+
+       key[code] = 'A';
+
+       code = a;
+       code += a;
+       code += a;
+       code += a;
+       code += b;
+
+       key[code] = 'B';
+
+       code = a;
+       code += a;
+       code += a;
+       code += b;
+       code += a;
+
+       key[code] = 'C';
+
+       code = a;
+       code += a;
+       code += a;
+       code += b;
+       code += b;
+
+       key[code] = 'D';
+
+       code = a;
+       code += a;
+       code += b;
+       code += a;
+       code += a;
+
+       key[code] = 'E';
+
+       code = a;
+       code += a;
+       code += b;
+       code += a;
+       code += b;
+
+       key[code] = 'F';
+
+       code = a;
+       code += a;
+       code += b;
+       code += b;
+       code += a;
+
+       key[code] = 'G';
+
+       code = a;
+       code += a;
+       code += b;
+       code += b;
+       code += b;
+
+       key[code] = 'H';
+
+       code = a;
+       code += b;
+       code += a;
+       code += a;
+       code += a;
+
+       key[code] = 'I';
+
+       code = a;
+       code += b;
+       code += a;
+       code += a;
+       code += b;
+
+       key[code] = 'J';
+
+       code = a;
+       code += b;
+       code += a;
+       code += b;
+       code += a;
+
+       key[code] = 'K';
+
+       code = a;
+       code += b;
+       code += a;
+       code += b;
+       code += b;
+
+       key[code] = 'L';
+
+       code = a;
+       code += b;
+       code += b;
+       code += a;
+       code += a;
+
+       key[code] = 'M';
+
+       code = a;
+       code += b;
+       code += b;
+       code += a;
+       code += b;
+
+       key[code] = 'N';
+
+       code = a;
+       code += b;
+       code += b;
+       code += b;
+       code += a;
+
+       key[code] = 'O';
+
+       code = a;
+       code += b;
+       code += b;
+       code += b;
+       code += b;
+
+       key[code] = 'P';
+
+       code = b;
+       code += a;
+       code += a;
+       code += a;
+       code += a;
+
+       key[code] = 'Q';
+
+       code = b;
+       code += a;
+       code += a;
+       code += a;
+       code += b;
+
+       key[code] = 'R';
+
+       code = b;
+       code += a;
+       code += a;
+       code += b;
+       code += a;
+
+       key[code] = 'S';
+
+       code = b;
+       code += a;
+       code += a;
+       code += b;
+       code += b;
+
+       key[code] = 'T';
+
+       code = b;
+       code += a;
+       code += b;
+       code += a;
+       code += a;
+
+       key[code] = 'U';
+
+       code = b;
+       code += a;
+       code += b;
+       code += a;
+       code += b;
+
+       key[code] = 'V';
+
+       code = b;
+       code += a;
+       code += b;
+       code += b;
+       code += a;
+
+       key[code] = 'W';
+
+       code = b;
+       code += a;
+       code += b;
+       code += b;
+       code += b;
+
+       key[code] = 'X';
+
+       code = b;
+       code += b;
+       code += a;
+       code += a;
+       code += a;
+
+       key[code] = 'Y';
+
+       code = b;
+       code += b;
+       code += a;
+       code += a;
+       code += b;
+
+       key[code] = 'Z';
+
+       int count = 1;
+       code = "";
+
+       for (int i = 0; i < cipherText.length(); i++)
+       {
+           code += cipherText[i];
+
+           if (count == 5)
+           {
+               plainText += key.find(code)->second;
+               code = "";
+               count = 0;
+           }
+           count++;
+       }
+
+       return plainText;
    }
 };
 
