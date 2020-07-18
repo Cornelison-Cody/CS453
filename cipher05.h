@@ -18,7 +18,7 @@ class Cipher05 : public Cipher
 {
 public:
    virtual std::string getPseudoAuth()  { return "Jason Steffen"; }
-   virtual std::string getCipherName()  { return "vigenere-cipher"; }
+   virtual std::string getCipherName()  { return "Vigenere-cipher"; }
    virtual std::string getEncryptAuth() { return "Eric Mott"; }
    virtual std::string getDecryptAuth() { return "Cody Cornelison"; }
 
@@ -28,7 +28,7 @@ public:
     ***********************************************************/
    virtual std::string getCipherCitation()
    {
-      return std::string("https://en.wikipedia.org/wiki/Vigen%C3%A8re_cipher");
+      return std::string("https://www.geeksforgeeks.org/vigenere-cipher/ - Written by Ayush Khanduri. - Retrieved on 07/15/2020");
    }
    
    /**********************************************************
