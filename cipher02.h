@@ -204,6 +204,9 @@ public:
 
 		for (int i = 0; i < cipherText.length() - 1; i++)
 		{
+			if (cipherText[i] != ' ')
+			{
+
 			// get the rowKeys from the ciphertext
 			char columnChar = cipherText[i++];
 			char rowChar = cipherText[i++];
@@ -229,6 +232,8 @@ public:
 			}
 
 			plainText += alphabetArray[columnIndex][rowIndex];
+			}
+			
 		}
 
 		// TODO - Add your code here
