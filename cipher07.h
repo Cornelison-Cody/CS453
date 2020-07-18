@@ -107,30 +107,23 @@ public:
    {
        // insert the decryption pseudocode
        // Pass the ciphertext to this function
-       std::string plainText = "";
+       std::string plainText = cipherText;
        std::string pswd = password;
-       vector <int> numKey;
-       int input;
-
-       // Ask the user for each individual number key for each letter  
+     
+        // Ask the user for each individual number key for each letter  
        // This represents the password and should be a new vector containing the same numbers in the password vector  
 
        for (int i = 0; i < pswd.length(); i++){
            pswd[i] = toupper(pswd[i]);
        }
 
-       for (int i = 0; i < pswd.length(); i++){
-            cout << "Enter Number " << i+1 << " key: "  << endl;
-            numKey.push_back(input);
-            cin >> input;
-       }
-
-      // Loop through the new number key vector and the ciphertext and shift the characters of the ciphertext back by the numbers in the vector one by one
-      // Decryption is finished, display the plaintext
-       for (char k : numKey) {
-
-           //plainText[k] = cipherText[k] + pswd[k] - numKey[k];
-           plainText += cipherText[k] + pswd[k] - numKey[k];
+       for (int i = 0; i < plainText.length() && i < pswd.length(); i++)
+       {
+           // add the original plaintext to the password key
+           // mod 26 will give us the correct letter from 0 - 26
+           // and handle looping past Z
+           // so add 65 to get back to the correct ascii range
+           plainText[i] = (((plainText[i]) - (pswd[i])) % 26) + 65;
        }
       return plainText;
 
